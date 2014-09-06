@@ -15,7 +15,7 @@ exports.login = function(req, res){
 
 exports.logout = function(req, res){
   req.logout();
-  req.flash('notice', 'T.T.F.N');
+  req.flash('T.T.F.N');
   res.redirect('/');
 };
 
@@ -28,6 +28,13 @@ exports.create = function(req, res){
     }
   });
 };
+exports.contact = function(req, res){
+  res.render('users/contact');
+};
+
+exports.send = function(req, res){
+  res.redirect('/messages');
+};
 
 exports.messages = function(req, res){
   req.user.messages(function(err, messages){
@@ -38,6 +45,15 @@ exports.messages = function(req, res){
 exports.message = function(req, res){
   Message.read(req.params.msgId, function(err, message){
     res.render('users/message', {message:message, moment:moment});
+  });
+};
+
+exports.send = function(req, res){
+  User.findById(req.params.userId, function(err, receiver){
+    console.log('&&&&&&&&', receiver);
+    req.user.send(receiver, req.body, function(){
+      res.redirect('/messages/' + res.locals.id);
+    });
   });
 };
 

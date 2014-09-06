@@ -72,7 +72,7 @@ describe('users', function(){
     });
   });
 
-  describe('get /auth/twitter', function(){
+  /*describe('get /auth/twitter', function(){
     it('should take user to the home page', function(done){
       request(app)
       .get('/auth/twitter')
@@ -92,7 +92,7 @@ describe('users', function(){
         done();
       });
     });
-  });
+  });*/
 
   describe('get /auth/facebook', function(){
     it('should take user to the home page', function(done){
@@ -185,6 +185,46 @@ describe('users', function(){
       });
     });
   });
+
+  describe('get /messages/000000000000000000000001/send', function(){
+    it('should send a text message to a user', function(done){
+      request(app)
+      .post('/messages/000000000000000000000001/send')
+      .set('cookie', cookie)
+      .send('mtype=text&message=hello')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
+  describe('get /messages/000000000000000000000001/send', function(){
+    it('should send an internal message to a user', function(done){
+      request(app)
+      .post('/messages/000000000000000000000001/send')
+      .set('cookie', cookie)
+      .send('mtype=internal&message=hello')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
+  describe('get /messages/000000000000000000000001/send', function(){
+    it('should send an email message to a user', function(done){
+      request(app)
+      .post('/messages/000000000000000000000001/send')
+      .set('cookie', cookie)
+      .send('mtype=email&message=hello')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
 
 });//closing bracket
 

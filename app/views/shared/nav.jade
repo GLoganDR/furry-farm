@@ -13,9 +13,8 @@
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
         if user
-          li: a(href='/messages')
-            span Messages &nbsp;
-            span.badge= user.unread
+          li: a(href='/messages') Messages
+          li.unread= user.unreadMessages > 0 ? user.unreadMessages : null
           li
             form.navbar-form(method='post', action='/logout')
               .form-group

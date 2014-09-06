@@ -2,7 +2,8 @@ extends ../shared/template
 block content
   .row
     .col-xs-12
-      h1 Message Inbox
+      h3 #{user.email}'s messages
+      #unread #{ (unread) ? 'You have ' + unread + ' unread message(s)' : 'You have no unread messages.'}
   .row
     .col-xs-2
     .col-xs-8
@@ -12,14 +13,16 @@ block content
             th
             th From
             th Date
+            th Time
             th Message
         tbody
           each message in messages
             tr
               td
                 span.glyphicon(class=(!message.isRead === true ? 'glyphicon-envelope' : ' '))
-              td: a(href='/messages/#{message._id}')= message.from
-              td=moment(message.sent).format('DD MMM, YYYY')
+              td= message.from
+              td= moment(message.sent).format('DD MMM, YYYY')
+              td= moment(message.date).fromNow()
               td: a(href='/messages/#{message._id}')= message.body.slice(0, 10) + ' ....'
         .col.xs-2
 

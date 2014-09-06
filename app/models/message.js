@@ -34,10 +34,16 @@ Message.unread = function(receiverId, cb){
   Message.collection.find({receiverId:receiverId, isRead:false}).count(cb);
 };
 
+Message.send = function(senderId, receiverId, message, cb){
+  var m = new Message(senderId, receiverId, message);
+  Message.collection.save(m, cb);
+};
 module.exports = Message;
 
 function iterator(msg, cb){
+  console.log('%%%%%%%', msg);
   require('./user').findById(msg.senderId, function(err, sender){
+    console.log('$$##%%', msg);
     msg.sender = sender;
     cb(null, msg);
   });
