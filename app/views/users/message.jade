@@ -7,11 +7,13 @@ block content
       .panel-body
         .col-xs-12
           h3=(moment(message.sent).format('DD MMM, YYYY'))
-        .col-xs-6
+        .col-xs-1
           h3#email From:
-        .col-xs-6
-          h3: message.sender.email
+        .col-xs-3
+          h3= message.from
+        .col-xs-8
+
         .col-xs-12
-          h3=message.message
+          h3= message.body
 block scripts
 

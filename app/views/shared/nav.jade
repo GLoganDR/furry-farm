@@ -7,7 +7,8 @@
         span.icon-bar
         span.icon-bar
       p.navbar-text.navbar-left
-        a.navbar-link(href='#')= user.email
+        if user
+          a.navbar-link(href='#')= user.email || user.username
 
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
