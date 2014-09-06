@@ -1,5 +1,5 @@
 /* jshint expr:true */
-/* global describe, it, before, beforeEach */
+/* global it, describe, before, beforeEach */
 
 'use strict';
 
@@ -46,29 +46,6 @@ describe('Message', function(){
       });
     });
   });
-
-  /*describe('.read', function(){
-    it('should display a single message and mark it as read', function(done){
-      Message.read('a00000000000000000000001', function(message){
-        console.log('&&&&&&&', message);
-        expect(message.isRead).to.be.true;
-        done();
-      });
-    });
-  });*/
-
-  /*describe('.unread', function(){
-    it('should display unread messages', function(done){
-      var message = 'a00000000000000000000002'
-      Messages.unread(u, function(err, message){
-        console.log('^^^^^^^', message);
-      });
-    });
-  });
-
-  describe('iterator', function(){
-    it
-  });*/
 
 
 

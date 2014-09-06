@@ -1,7 +1,7 @@
 {
   "_id" : {"$oid":"000000000000000000000001"},
   "email" : "bob@aol.com",
-  "username" : "BobtheBird",
+  "username" : "Bobby Birdman",
   "species" : "Bird",
   "height" : "tall",
   "age" : 40,
@@ -9,7 +9,12 @@
   "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
   "isVisible" : true,
   "loc" : {"name":"Reykjavíc, Iceland", "lat":64.133333, "lng":-21.933333},
-  "sex" : "male"
+  "sex" : "male",
+  "photos": ["http://1.bp.blogspot.com/_Y8m29ZLX5ag/SwOvCN3Lc-I/AAAAAAAAEPI/3cOeOnDHy8c/s1600/BIRDMAN+SKETCH+CARD+2.jpg", "http://fc01.deviantart.net/fs71/i/2010/329/4/f/birdman_color_flats_by_shinmusashi44-d33mdua.jpg"],
+  "primaryPhoto": "http://fc01.deviantart.net/fs8/i/2005/306/2/7/Harvey_Birdman_by_Walmsley.jpg",
+  "description": "I'm a bird first and a man second. BIIIIIIIIIIRRRD MAAANNNNNN!",
+  "wags": ["000000000000000000000002", "000000000000000000000003"],
+  "licks": []
 }
 {
   "_id" : {"$oid":"000000000000000000000002"},
@@ -17,17 +22,19 @@
   "height" : "average",
   "age" : 27,
   "bodyType" : 2,
-  "username" : "SamtheSeal",
+  "username" : "Seal the Deal",
   "species" : "Seal",
   "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
   "isVisible" : false,
   "loc" : {"name":"Manila, Phillippines", "lat":14.583333, "lng":120.966667},
-  "sex" : "male"
+  "sex" : "male",
+  "wags": ["000000000000000000000001"],
+  "licks": ["000000000000000000000003"]
 }
 {
   "_id" : {"$oid":"000000000000000000000003"},
   "email" : "sue@aol.com",
-  "username" : "SuethePig",
+  "username" : "Mrs. Piggy",
   "species" : "Pig",
   "height" : "short",
   "bodyType" : 1,
@@ -35,6 +42,8 @@
   "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
   "isVisible" : true,
   "loc" : {"name":"Amsterdam, Netherlands", "lat":52.366667, "lng":4.9},
-  "sex" : "female"
+  "sex" : "female",
+  "wags": ["000000000000000000000002"],
+  "licks": []
 }
 

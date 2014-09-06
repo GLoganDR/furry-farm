@@ -1,3 +1,73 @@
 extends ../shared/template
 block content
-  h2 Public Page!
+  #daterBackground
+    #coverDiv
+      .row
+        .col-xs-7
+          .header= publicUser.username
+          if publicUser.primaryPhoto
+            .row: #primaryPhoto(style='background-image: url(#{publicUser.primaryPhoto})')
+          else
+            .row: #primaryPhoto(style='background-image: url(/img/no.jpeg)')
+        .col-xs-1
+        .col-xs-3
+          .otherPhotos
+            .header2 Photos
+            if publicUser.photos 
+              each photo in publicUser.photos
+                .minorPhoto(style='background-image: url(#{photo})')
+            else
+                p No photos added yet...
+        .col-xs-1
+      .row
+        .col-xs-12
+          ul#controls
+            li
+              a(href='/messages/#{publicUser._id}/send') 
+               button.btn.btn-primary.btn-lg(type='button') Send message
+            li 
+              form(method='post' action='/user/#{publicUser._id}/wag')
+                button.btn.btn-primary.btn-lg(type='submit') Wag
+            li
+              form(method='post' action='/user/#{publicUser._id}/lick')
+                button.btn.btn-primary.btn-lg(type='submit') Lick
+            li
+              a(href='/messages/#{publicUser._id}/send')
+                button.btn.btn-primary.btn-lg(type='button') Gift
+      .row
+        .col-xs-4.backdrop
+          ul.info
+            li Location: #{publicUser.loc.name}
+            hr
+            li Sex: #{publicUser.sex}
+            hr
+            li Age: #{publicUser.age}
+            hr
+            li Species: #{publicUser.species}
+            hr
+            li Wags: #{publicUser.wags.length}
+            hr
+            li Licks: #{publicUser.licks.length}
+            hr
+            li Kids?: Yes 
+            hr
+            li Smoker?: Yes
+            hr
+            li Tagline: #{publicUser.tagline || ''}
+            hr
+
+        .col-xs-7.backdrop
+          .header2 Summary:
+          #profileDescription
+            p= publicUser.description || 'This user has not added a summary yet...'
+          br
+          .header2 I'm Looking For:
+          #profileDescription
+            p= publicUser.favMedia || 'This has not mentioned what they are looking for...'
+          br
+          .header2 Favorite Books/Movies:
+          #profileDescription
+            p= publicUser.favMedia || 'This has not mentioned what they like...'
+  
+block scripts
+  script(src='/js/user/photo.js')

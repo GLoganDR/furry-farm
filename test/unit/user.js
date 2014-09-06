@@ -31,7 +31,7 @@ describe('User', function(){
 
   describe('.displayProfile', function(){
     it('should display a public-only profile', function(done){
-      var c = '000000000000000000000003';
+      var c = '000000000000000000000001';
       User.displayProfile(c, function(err, user){
         expect(user.isVisible).to.be.true;
         expect(user).to.be.ok;

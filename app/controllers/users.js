@@ -31,7 +31,6 @@ exports.create = function(req, res){
 
 exports.messages = function(req, res){
   req.user.messages(function(err, messages){
-    console.log('>>>**<<<<', messages);
     res.render('users/messages', {messages:messages, moment:moment});
   });
 };
@@ -44,21 +43,31 @@ exports.message = function(req, res){
 
 exports.displayProfile = function(req, res){
   User.displayProfile(req.params.userId, function(err, user){
-    //No user found, return error
     if(!user) {
-      req.flash('error', 'No user found.');
+      req.flash('error', 'No user found or profile is private.');
       res.redirect('/');
     }
-    //Is it the owner?
     else if(user._id.toString() === req.user._id.toString()){
-      res.render('users/owner-page', {user: user});
+      res.render('users/owner-page', {waggers: user.waggers || []});
     }
-    //Display public profile
     else {
-      res.render('users/public-page', {user: user});
+      res.render('users/public-page', {publicUser: user});
     }
   });
 };
 
+exports.wag = function(req, res){
+  User.addWag(req.params.toId, req.user._id, function(err, savedItem){
+    req.flash('success', 'You wagged at someone!');
+    res.redirect('/farm/users/' + req.params.toId);
+  });
+};
+
+exports.lick = function(req, res){
+  User.addLick(req.params.lickee, req.user._id, function(err, savedItem){
+    req.flash('success', 'You licked someone! View them in your favorites.');
+    res.redirect('/farm/users/' + req.params.lickee);
+  });
+};
 
 

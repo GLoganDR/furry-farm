@@ -1,9 +1,10 @@
 'use strict';
 
-var bcrypt = require('bcrypt'),
+var bcrypt  = require('bcrypt'),
     Message = require('./message'),
-    Mongo  = require('mongodb'),
-    _      = require('underscore-contrib');
+    Mongo   = require('mongodb'),
+    _       = require('underscore-contrib'),
+    async   = require('async');
 
 function User(){
 }
@@ -69,9 +70,41 @@ User.prototype.messages = function(cb){
 
 User.displayProfile = function(userId, cb){
   var _id = Mongo.ObjectID(userId);
-  User.collection.findOne({_id: _id, isVisible: true}, cb);
+  User.collection.findOne({_id: _id, isVisible: true}, function(err, user){
+    if(!user){ return cb(err, user);}
+    async.map(user.wags, userIterator, function(err, waggers){
+      user.waggers = waggers;
+      cb(err, user);
+    });
+  });
+};
+
+User.addWag = function(to, from, cb){
+  var toId = Mongo.ObjectID(to);
+  User.collection.findOne({_id: toId}, function(err, user){
+    user.wags.push(from);
+    user.wags = _.uniq(user.wags);
+    User.collection.save(user, cb);
+  });
+};
+
+User.addLick = function(lickedPerson, loggedInUser, cb){
+  //loggedInUser already Mongo.ObjectID
+  User.collection.findOne({_id: loggedInUser}, function(err, user){
+    user.licks.push(lickedPerson);
+    user.licks = _.uniq(user.licks);
+    User.collection.save(user, cb);
+  });
 };
 
 
 module.exports = User;
 
+//Private Functions
+function userIterator(userId, cb){
+  var userList;
+  User.findById(userId, function(err, user){
+    userList = user;
+    cb(null, userList);
+  });
+}

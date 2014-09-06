@@ -162,6 +162,30 @@ describe('users', function(){
     });
   });
 
+  describe('post /user/:toId/wag', function(){
+    it('should should add a wag to someones profile', function(done){
+      request(app)
+      .post('/user/000000000000000000000003/wag')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
+  describe('post /user/:lick/lick', function(){
+    it('should should add favorite to someones list', function(done){
+      request(app)
+      .post('/user/000000000000000000000003/lick')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
 });//closing bracket
 
 

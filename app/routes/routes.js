@@ -50,6 +50,8 @@ module.exports = function(app, express){
   //logged in user access
   app.delete('/logout', users.logout);
   app.get('/farm/users/:userId', users.displayProfile);
+  app.post('/user/:toId/wag', users.wag);
+  app.post('/user/:lickee/lick', users.lick);
 
   console.log('Express: Routes Loaded');
 };

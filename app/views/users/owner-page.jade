@@ -1,4 +1,75 @@
 extends ../shared/template
 block content
-  h2 Owner Page!
+  .row
+    .col-xs-7
+      .header= user.username
+      if user.primaryPhoto
+        .row: #primaryPhoto(style='background-image: url(#{user.primaryPhoto})')
+      else
+        .row: #primaryPhoto(style='background-image: url(/img/no.jpeg)')
+    .col-xs-1
+    .col-xs-3
+      .otherPhotos
+        .header2 Photos
+        if user.photos 
+          each photo in user.photos
+            .minorPhoto(style='background-image: url(#{photo})')
+        else
+            p No photos added yet...
+    .col-xs-1
+  .row
+    .col-xs-12
+      ul#controls
+        li
+          a(href='/edit/profile')
+            button.btn.btn-primary(type='button') Edit Profile
+  .row
+    .col-xs-4.backdrop
+      ul.info
+        li Location: #{user.loc.name}
+        hr
+        li Sex: #{user.sex}
+        hr
+        li Age: #{user.age}
+        hr
+        li Species: #{user.species}
+        hr
+        li Wags: #{user.wags.length}
+        hr
+        li Licks: #{user.licks.length}
+        hr
+        li Kids?: No
+        hr
+        li Smoker?: No
+        hr
+        li Tagline: #{user.tagline || ''}
+        hr
+
+      #yourWags
+        .header3 Wag List
+        hr
+
+        if waggers
+          each wagger in waggers
+            .row
+              .col-xs-12: a(href='/farm/users/#{wagger._id}') #{wagger.username}</a> wagged at you!
+        else 
+          p Nobody has wagged at you...
   
+
+
+    .col-xs-7.backdrop
+      .header2 Summary:
+      #profileDescription
+        p= user.description || 'You have not added a summary yet...'
+      br
+      .header2 I'm Looking For:
+      #profileDescription
+        p= user.favMedia || 'You have not mentioned what you are looking for...'
+      br
+      .header2 Favorite Books/Movies:
+      #profileDescription
+        p= user.favMedia || 'You have not mentioned what you like...'
+
+block scripts
+  script(src='/js/user/photo.js')
