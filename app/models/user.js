@@ -69,6 +69,23 @@ User.facebookAuthenticate = function(token, secret, facebook, cb){
   });
 };
 
+User.prototype.save = function(o, cb){
+  var properties = Object.keys(o),
+      self       = this;
+
+  properties.forEach(function(property){
+    switch(property){
+      case 'visible':
+        self.isVisible = o[property] === 'public';
+        break;
+      default:
+        self[property] = o[property];
+    }
+  });
+
+  User.collection.save(this, cb);
+};
+
 User.prototype.messages = function(cb){
   Message.messages(this._id, cb);
 };

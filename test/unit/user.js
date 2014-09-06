@@ -42,6 +42,21 @@ describe('User', function(){
     });
   });
 
+  describe('#save', function(){
+    it('should save a user', function(done){
+      var u = new User(),
+          o = {x:3, visible:'public', foo:'bar'};
+
+      u.baz = 'bim';
+      u.save(o, function(err, user){
+        expect(user.isVisible).to.be.true;
+        expect(user.foo).to.equal('bar');
+        expect(user.baz).to.equal('bim');
+        done();
+      });
+    });
+  });
+
   describe('#messages', function(){
     it('should display messages for a given user', function(done){
       var u = new User();

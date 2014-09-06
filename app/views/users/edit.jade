@@ -1,0 +1,59 @@
+extends ../shared/template
+block content
+  h2 Edit Profile
+  .row
+    .col-xs-12
+      form#editProfileForm(role='form', method='post', action='/users/edit')
+        .row
+          .col-xs-1
+          .col-xs-4
+            input(type='hidden', name='_method', value='put')
+            input#lat(type='hidden', name='loc[lat]')
+            input#lng(type='hidden', name='loc[lng]')
+            .form-group
+              label(for='name') Name:
+              input.form-control#name(type='text', name='name', value=(user.username || 'name?'), autofocus=true)
+            .form-group
+              label(for='species') Species:
+              input.form-control#species(type='text', name='species', value=(user.species || 'species?'))
+            .form-group
+              label(for='locName') Location:
+              input.form-control#locName(type='text', name='loc[name]', value=(user.loc[name] || 'location?'))
+            .form-group
+              label(for='email') Email:
+              input.form-control#email(type='email', name='email', value=(user.email || 'email?'))
+            .form-group
+              label(for='age') Age:
+              input.form-control#age(type='text', name='age', value=(user.age || 'age?' ))
+          .col-xs-1
+          .col-xs-4
+            .form-group
+              label(for='photo') Photo:
+              input.form-control#photo(type='text', name='photo', value=(user.photo || ''))
+            .form-group
+              label(for='tagline') Tagline:
+              input.form-control#tagline(type='text', name='tagline', value=(user.tagline || 'tag line?'))
+          .col-xs-2
+        .row
+          .col-xs-5
+          .col-xs-1
+            .radio
+              label
+                input(type='radio' name='visible' value='public' checked=user.isVisible)
+                span Public
+          .col-xs-1
+            .radio
+              label
+                input(type='radio' name='visible' value='private', checked=!user.isVisible)
+                span Private
+          .col-xs-5
+        .row
+        .row
+          .col-xs-6
+          .col-xs-1
+            button.btn.btn-primary(type='submit') Submit
+          .col-xs-5
+
+block scripts
+  script(src='/js/user/editProfile.js')
+

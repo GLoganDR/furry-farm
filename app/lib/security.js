@@ -1,6 +1,5 @@
 'use strict';
 
-
 exports.locals = function(req, res, next){
   res.locals.user  = req.user;
   res.locals.flash = {};

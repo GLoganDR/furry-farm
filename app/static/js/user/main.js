@@ -9,7 +9,7 @@
     var pos = getPosition(),
         positions = getPositions();
 
-    initMap(pos.lat, pos.lng, 11);
+    initMap(pos.lat, pos.lng, 10);
     addMarker(pos.lat, pos.lng, pos.loc);
 
     positions.forEach(function(posit){

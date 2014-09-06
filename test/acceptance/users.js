@@ -40,6 +40,19 @@ describe('users', function(){
     });
   });
 
+  describe('get /users/edit', function(){
+    it('should show the user profile edit page', function(done){
+      request(app)
+      .get('/users/edit')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Edit Profile');
+        done();
+      });
+    });
+  });
+
   describe('get /browse', function(){
     it('should show all public users', function(done){
       request(app)

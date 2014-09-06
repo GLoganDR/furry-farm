@@ -43,12 +43,13 @@ module.exports = function(app, express){
   app.get('/messages', users.messages);
   app.get('/messages/:msgId', users.message);
 
-
   //security
   app.use(security.bounce);
 
   //logged in user access
   app.delete('/logout', users.logout);
+  app.get('/users/edit', users.edit);
+  app.put('/users/edit', users.update);
   app.get('/browse', users.browse);
 
   app.get('/farm/users/:userId', users.displayProfile);

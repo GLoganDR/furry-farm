@@ -29,6 +29,20 @@ exports.create = function(req, res){
   });
 };
 
+exports.edit = function(req, res){
+  console.log('>>>>>> users/edit.  req= ', req);
+  res.render('users/edit');
+};
+
+exports.update = function(req, res){
+  console.log('>>>>>> CONTROLLER - USER UPDATE - req.params: ', req.params);
+  console.log('>>>>>> CONTROLLER - USER UPDATE - req.body: ', req.body);
+  console.log('>>>>>> CONTROLLER - USER UPDATE - req.user: ', req.user);
+  res.locals.user.save(req.body, function(){
+    res.redirect('/farm/users/' + res.locals.user._id);
+  });
+};
+
 exports.messages = function(req, res){
   req.user.messages(function(err, messages){
     res.render('users/messages', {messages:messages, moment:moment});
