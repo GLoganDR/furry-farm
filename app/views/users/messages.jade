@@ -17,7 +17,7 @@ block content
           each message in messages
             tr
               td
-                span.glyphicon(class=(!message.isRead === true ? 'glyphicon-envelope' : 'glyphicon-ok'))
+                span.glyphicon(class=(!message.isRead === true ? 'glyphicon-envelope' : ' '))
               td: a(href='/messages/#{message._id}')= message.from
               td=moment(message.sent).format('DD MMM, YYYY')
               td: a(href='/messages/#{message._id}')= message.body.slice(0, 10) + ' ....'
