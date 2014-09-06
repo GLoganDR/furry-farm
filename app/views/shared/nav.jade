@@ -6,19 +6,20 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/') Furry Farm
+      p.navbar-text.navbar-left
+        a.navbar-link(href='#')= user.email
 
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
         if user
+          li: a(href='/messages')
+            span Messages &nbsp;
+            span.badge= user.unread
           li
             form.navbar-form(method='post', action='/logout')
               .form-group
                 input(type='hidden', name='_method', value='delete')
-                button.btn.btn-danger= user.email
-          li: a(href='/messages')
-            span Messages &nbsp;
-            span.badge= user.unread
+                button.btn.btn-danger Logout
         else
           li: a(href='/register') Register
           li: a(href='/login') Login
