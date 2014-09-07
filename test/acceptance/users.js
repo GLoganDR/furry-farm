@@ -40,6 +40,54 @@ describe('users', function(){
     });
   });
 
+  describe('get /', function(){
+    it('should show the Home page', function(done){
+      request(app)
+      .get('/')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Mission Statement');
+        done();
+      });
+    });
+  });
+
+  describe('get /contact', function(){
+    it('should show the contact page', function(done){
+      request(app)
+      .get('/contact')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Contact');
+        done();
+      });
+    });
+  });
+
+  describe('get /about', function(){
+    it('should show the About page', function(done){
+      request(app)
+      .get('/about')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('About');
+        done();
+      });
+    });
+  });
+
+  describe('get /faqs', function(){
+    it('should show the FAQ page', function(done){
+      request(app)
+      .get('/faqs')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('FAQs');
+        done();
+      });
+    });
+  });
+
   describe('get /users/edit', function(){
     it('should show the user profile edit page', function(done){
       request(app)
