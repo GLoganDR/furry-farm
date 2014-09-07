@@ -199,7 +199,6 @@ User.displayProposals = function(userId, cb){
 
 };
 
-//NEEDS TESTING
 User.propose = function(to, from, cb){
   var p = new Proposal();
   p.receiverId = to;
