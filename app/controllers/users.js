@@ -98,3 +98,22 @@ exports.browse = function(req, res){
     res.render('users/browse', {users:users});
   });
 };
+
+exports.lickIndex = function(req, res){
+  User.displayLicks(req.user._id, function(licks){
+    User.displayProposals(req.user._id, function(proposals, users){
+      res.render('users/licks', {licks: licks, proposals: proposals, users: users});
+    });
+  });
+};
+
+exports.propose = function(req, res){
+  User.propose(req.params.lickeeId, req.user._id, function(){
+    res.redirect('/user/licks');
+  });
+};
+
+//accept date proposal
+
+//decline date proposal
+

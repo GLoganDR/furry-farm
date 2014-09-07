@@ -4,9 +4,10 @@ var bcrypt  = require('bcrypt'),
     Message = require('./message'),
     Mongo   = require('mongodb'),
     _       = require('underscore-contrib'),
-    fs    = require('fs'),
-    path  = require('path'),
-    async   = require('async');
+    fs      = require('fs'),
+    path    = require('path'),
+    async   = require('async'),
+    Proposal = require('./proposal');
 
 function User(){
 }
@@ -157,6 +158,38 @@ User.addLick = function(lickedPerson, loggedInUser, cb){
     User.collection.save(user, cb);
   });
 };
+
+User.displayLicks = function(userId, cb){
+  User.findById(userId, function(err, user){
+    if(!user.licks.length) { return cb([]); }
+
+    async.map(user.licks, function(lick, cb){
+      User.findById(lick, function(err, u){
+        cb(null, u);
+      });
+    }, function(err, licks){
+      cb(licks);
+    });
+  });
+
+};
+
+
+User.displayProposals = function(userId, cb){
+  Proposal.find(userId, function(err, proposals){
+    if(!proposals.length) { return cb([]); }
+
+    async.map(proposals, function(from, cb){
+      User.findById(from.fromId, function(err, u){
+        cb(null, u);
+      });
+    }, function(err, users){
+      cb(proposals, users);
+    });
+  });
+
+};
+
 
 
 module.exports = User;

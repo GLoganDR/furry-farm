@@ -40,8 +40,7 @@ module.exports = function(app, express){
   app.get('/auth/google/callback', passport.authenticate('google',    {successRedirect:'/', failureRedirect:'/login', successFlash:'Google got you in!',  failureFlash:'Sorry, your Google login did not work'}));
   app.get('/auth/facebook', passport.authenticate('facebook'));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {successRedirect:'/', failureRedirect:'/login', successFlash:'Facebook got you in!', failureFlash:'Sorry, your Facebook login did not work'}));
-  app.get('/messages', users.messages);
-  app.get('/messages/:msgId', users.message);
+
 
   //security
   app.use(security.bounce);
@@ -52,10 +51,13 @@ module.exports = function(app, express){
   app.put('/users/edit', users.update);
   app.post('/users/edit/photo', users.uploadPhoto);
   app.get('/browse', users.browse);
-
+  app.get('/messages', users.messages);
+  app.get('/messages/:msgId', users.message);
   app.get('/farm/users/:userId', users.displayProfile);
   app.post('/user/:toId/wag', users.wag);
   app.post('/user/:lickee/lick', users.lick);
+  app.get('/user/licks', users.lickIndex);
+  app.post('/user/:lickeeId/propose', users.propose);
 
   console.log('Express: Routes Loaded');
 };

@@ -68,4 +68,30 @@ describe('User', function(){
     });
   });
 
+  describe('.displayLicks', function(){
+    it('should display messages for a given user', function(done){
+      var u = new User();
+      u._id = '000000000000000000000001';
+
+      User.displayLicks(u._id, function(licks){
+        expect(licks).to.have.length(1);
+        done();
+      });
+    });
+  });
+
+  describe('.displayProposals', function(){
+    it('should display messages for a given user', function(done){
+      var u = new User();
+      u._id = '000000000000000000000001';
+
+      User.displayProposals(u._id, function(proposals){
+        expect(proposals).to.have.length(2);
+        done();
+      });
+    });
+  });
+
+
+
 });//final closing

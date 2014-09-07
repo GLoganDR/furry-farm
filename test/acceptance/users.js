@@ -213,6 +213,30 @@ describe('users', function(){
     });
   });
 
+  describe('get /user/licks', function(){
+    it('should take the user to the messages page', function(done){
+      request(app)
+      .get('/user/licks')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+  });
+
+  describe('post /user/:lickeeId/propose', function(){
+    it('should should add favorite to someones list', function(done){
+      request(app)
+      .post('/user/000000000000000000000003/propose')
+      .set('cookie', cookie)
+      .end(function(err, res){
+  //      expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
 });//closing bracket
 
 
