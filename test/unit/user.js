@@ -22,10 +22,12 @@ describe('User', function(){
     });
   });
 
-  describe('constructor', function(){
-    it('should create a new User object', function(){
-      var u = new User();
-      expect(u).to.be.instanceof(User);
+  describe('.find', function(){
+    it('should find users who are public', function(done){
+      User.find({isVisible:true}, function(err, users){
+        expect(users).to.have.length(2);
+        done();
+      });
     });
   });
 
@@ -35,6 +37,21 @@ describe('User', function(){
       User.displayProfile(c, function(err, user){
         expect(user.isVisible).to.be.true;
         expect(user).to.be.ok;
+        done();
+      });
+    });
+  });
+
+  describe('#save', function(){
+    it('should save a user', function(done){
+      var u = new User(),
+          o = {x:3, visible:'public', foo:'bar'};
+
+      u.baz = 'bim';
+      u.save(o, function(err, user){
+        expect(user.isVisible).to.be.true;
+        expect(user.foo).to.equal('bar');
+        expect(user.baz).to.equal('bim');
         done();
       });
     });

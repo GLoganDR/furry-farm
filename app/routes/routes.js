@@ -41,12 +41,15 @@ module.exports = function(app, express){
   app.get('/auth/facebook', passport.authenticate('facebook'));
   app.get('/auth/facebook/callback', passport.authenticate('facebook',  {successRedirect:'/', failureRedirect:'/login', successFlash:'Facebook got you in!', failureFlash:'Sorry, your Facebook login did not work'}));
 
-
   //security
   app.use(security.bounce);
 
   //logged in user access
   app.delete('/logout', users.logout);
+  app.get('/users/edit', users.edit);
+  app.put('/users/edit', users.update);
+  app.get('/browse', users.browse);
+
   app.get('/farm/users/:userId', users.displayProfile);
   app.post('/user/:toId/wag', users.wag);
   app.post('/user/:lickee/lick', users.lick);

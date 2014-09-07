@@ -59,6 +59,7 @@
     "passport-twitter": "^1.0.2",
     "request": "^2.40.0",
     "twilio": "^1.7.0",
+    "tablesort": "^1.7.0",
     "underscore-contrib": "^0.3.0"
   },
   "devDependencies": {

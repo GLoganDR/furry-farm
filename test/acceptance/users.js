@@ -40,6 +40,33 @@ describe('users', function(){
     });
   });
 
+  describe('get /users/edit', function(){
+    it('should show the user profile edit page', function(done){
+      request(app)
+      .get('/users/edit')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Edit Profile');
+        done();
+      });
+    });
+  });
+
+  describe('get /browse', function(){
+    it('should show all public users', function(done){
+      request(app)
+      .get('/browse')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('bob@aol.com');
+        expect(res.text).to.not.include('sue@aol.com');
+        done();
+      });
+    });
+  });
+
   describe('get /farm/user/:id', function(){
     it('should show a owner profile', function(done){
       request(app)
@@ -72,7 +99,7 @@ describe('users', function(){
     });
   });
 
-  /*describe('get /auth/twitter', function(){
+  describe('get /auth/twitter', function(){
     it('should take user to the home page', function(done){
       request(app)
       .get('/auth/twitter')
@@ -92,7 +119,7 @@ describe('users', function(){
         done();
       });
     });
-  });*/
+  });
 
   describe('get /auth/facebook', function(){
     it('should take user to the home page', function(done){
@@ -212,7 +239,7 @@ describe('users', function(){
     });
   });
 
-  describe('get /messages/000000000000000000000001/send', function(){
+  /*describe('get /messages/000000000000000000000001/send', function(){
     it('should send an email message to a user', function(done){
       request(app)
       .post('/messages/000000000000000000000001/send')
@@ -223,7 +250,7 @@ describe('users', function(){
         done();
       });
     });
-  });
+  });*/
 
 
 });//closing bracket

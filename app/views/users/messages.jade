@@ -23,7 +23,7 @@ block content
               td= message.from
               td= moment(message.sent).format('DD MMM, YYYY')
               td= moment(message.date).fromNow()
-              td: a(href='/messages/#{message._id}')= message.body.slice(0, 10) + ' ....'
+              td: a(href='/messages')= message.body.slice(0, 10) + ' ....'
         .col.xs-2
 
 block scripts

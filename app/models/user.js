@@ -11,6 +11,11 @@ var bcrypt  = require('bcrypt'),
 function User(){
 }
 
+User.find = function(filter, cb){
+  filter.isVisible = true;
+  User.collection.find(filter).toArray(cb);
+};
+
 Object.defineProperty(User, 'collection', {
   get: function(){return global.mongodb.collection('users');}
 });
@@ -64,6 +69,23 @@ User.facebookAuthenticate = function(token, secret, facebook, cb){
     user = {facebookId:facebook.id, username:facebook.username, type:'facebook'};
     User.collection.save(user, cb);
   });
+};
+
+User.prototype.save = function(o, cb){
+  var properties = Object.keys(o),
+      self       = this;
+
+  properties.forEach(function(property){
+    switch(property){
+      case 'visible':
+        self.isVisible = o[property] === 'public';
+        break;
+      default:
+        self[property] = o[property];
+    }
+  });
+
+  User.collection.save(this, cb);
 };
 
 User.prototype.messages = function(cb){

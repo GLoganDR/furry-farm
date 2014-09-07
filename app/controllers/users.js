@@ -36,6 +36,20 @@ exports.send = function(req, res){
   res.redirect('/messages');
 };
 
+exports.edit = function(req, res){
+  console.log('>>>>>> users/edit.  req= ', req);
+  res.render('users/edit');
+};
+
+exports.update = function(req, res){
+  console.log('>>>>>> CONTROLLER - USER UPDATE - req.params: ', req.params);
+  console.log('>>>>>> CONTROLLER - USER UPDATE - req.body: ', req.body);
+  console.log('>>>>>> CONTROLLER - USER UPDATE - req.user: ', req.user);
+  res.locals.user.save(req.body, function(){
+    res.redirect('/farm/users/' + res.locals.user._id);
+  });
+};
+
 exports.messages = function(req, res){
   req.user.messages(function(err, messages){
     res.render('users/messages', {messages:messages, moment:moment});
@@ -52,7 +66,7 @@ exports.send = function(req, res){
   User.findById(req.params.userId, function(err, receiver){
     console.log('&&&&&&&&', receiver);
     req.user.send(receiver, req.body, function(){
-      res.redirect('/messages/' + res.locals.id);
+      res.redirect('/messages');
     });
   });
 };
@@ -83,6 +97,13 @@ exports.lick = function(req, res){
   User.addLick(req.params.lickee, req.user._id, function(err, savedItem){
     req.flash('success', 'You licked someone! View them in your favorites.');
     res.redirect('/farm/users/' + req.params.lickee);
+  });
+};
+
+exports.browse = function(req, res){
+  var filter = req.query || {isVisible:true};
+  User.find(filter, function(err, users){
+    res.render('users/browse', {users:users});
   });
 };
 
