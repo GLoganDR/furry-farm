@@ -40,6 +40,32 @@ describe('users', function(){
     });
   });
 
+  describe('get /cart', function(){
+    it('should show the Cart page', function(done){
+      request(app)
+      .get('/cart')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Shopping Cart');
+        done();
+      });
+    });
+  });
+
+  describe('get /user/:userId/gifts', function(){
+    it('should show the Gifts page', function(done){
+      request(app)
+      .get('/user/:userId/gifts')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Gifts');
+        done();
+      });
+    });
+  });
+
   describe('get /', function(){
     it('should show the Home page', function(done){
       request(app)
