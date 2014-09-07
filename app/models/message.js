@@ -6,7 +6,7 @@ var async = require('async'),
 function Message(senderId, receiverId, message){
   this.senderId   = senderId;
   this.receiverId = receiverId;
-  this.message    = message.body;
+  this.body       = message;
   this.date       = new Date();
   this.isRead     = false;
 }
@@ -34,6 +34,11 @@ Message.unread = function(receiverId, cb){
   Message.collection.find({receiverId:receiverId, isRead:false}).count(cb);
 };
 
+Message.send = function(senderId, receiverId, message, cb){
+  console.log(receiverId);
+  var m = new Message(senderId, receiverId, message);
+  Message.collection.save(m, cb);
+};
 module.exports = Message;
 
 function iterator(msg, cb){

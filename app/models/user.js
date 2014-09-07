@@ -4,8 +4,10 @@ var bcrypt  = require('bcrypt'),
     Message = require('./message'),
     Mongo   = require('mongodb'),
     _       = require('underscore-contrib'),
-    fs      = require('fs'),
-    path    = require('path'),
+    twilio  = require('twilio'),
+    Mailgun = require('mailgun-js'),
+    fs    = require('fs'),
+    path  = require('path'),
     async   = require('async'),
     Proposal = require('./proposal');
 
@@ -159,6 +161,20 @@ User.addLick = function(lickedPerson, loggedInUser, cb){
   });
 };
 
+User.prototype.send = function(receiver, obj, cb){
+  switch(obj.mtype){
+    case 'text':
+      sendText(receiver.phone, obj.body, cb);
+      break;
+    case 'email':
+      sendEmail(this.email, receiver.email, obj.body, cb);
+      break;
+    case 'internal':
+    console.log(receiver);
+      Message.send(this._id, receiver._id, obj.body, cb);
+  }
+};
+
 User.displayLicks = function(userId, cb){
   User.findById(userId, function(err, user){
     if(!user.licks) { return cb([]); }
@@ -232,6 +248,23 @@ function userIterator(userId, cb){
   });
 }
 
+function sendText(to, body, cb){
+  if(!to){return cb();}
+
+  var accountSid  = process.env.TWSID,
+      authToken   = process.env.TWTOK,
+      from        = process.env.FROM,
+      client      = twilio(accountSid, authToken);
+
+  client.messages.create({to:to, from:from, body:body}, cb);
+}
+
+function sendEmail(from, to, message, cb){
+  var mailgun = new Mailgun({apiKey:process.env.MGKEY, domain:process.env.MGDOM}),
+      data    = {from:'admin@furryfarm.com', to:to, subject:'Subject: Hello From Furry Farm!', text:message};
+
+  mailgun.messages().send(data, cb);
+}
 
 function txtMsg(to, body, cb){
   if(!to){return cb();}
