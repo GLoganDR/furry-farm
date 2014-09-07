@@ -1,17 +1,24 @@
 extends ../shared/template
 block content
-  .row
-    .panel.panel-default
-      .panel-heading
-        h1.panel-title Message
-      .panel-body
-        .col-xs-12
-          h3=(moment(message.sent).format('DD MMM, YYYY'))
-        .col-xs-6
-          h3#email From:
-        .col-xs-6
-          h3: message.sender.email
-        .col-xs-12
-          h3=message.message
+  .container
+    .row
+      .panel.panel-default
+        .panel-heading
+          h1.panel-title Message
+        .panel-body
+          .col-xs-1
+            h5 Date:
+          .col-xs-3
+            h5=(moment(message.sent).format('DD MMM, YYYY'))
+          .col-xs-8
+          .row
+          .col-xs-1
+            h5 From:
+          .col-xs-3
+            h5= message.from
+          .col-xs-8
+          .row
+          .col-xs-12
+            h5= message.body
 block scripts
 

@@ -1,0 +1,75 @@
+extends ../shared/template
+block content
+  h2.browse Peruse the Farm!
+  .row
+    .col-xs-1
+    .col-xs-10
+      #map
+    .col-xs-1
+  .row
+    .col-xs-1
+    .col-xs-2
+      #attributes
+        h3.attributes Filter Users By:
+        ul.attributes
+          li: a(href='/browse?sex=Male') Male
+          li: a(href='/browse?sex=Female') Female
+          li: a(href='/browse?height=Dwarf') Dwarf
+          li: a(href='/browse?height=Short') Short
+          li: a(href='/browse?height=Average') Average
+          li: a(href='/browse?height=Tall') Tall
+          li: a(href='/browse?height=Giant') Giant
+          li: a(href='/browse?bodyType=Slim') Slim
+          li: a(href='/browse?bodyType=Athletic') Athletic
+          li: a(href='/browse?bodyType=Average') Average
+          li: a(href='/browse?bodyType=Curvy') Curvy
+          li: a(href='/browse?bodyType=Rotund') Rotund
+      #species
+        h3.species Select Species:
+        ul.species
+          li: a(href='/browse?species=Dog') Dog
+          li: a(href='/browse?species=Cat') Cat
+          li: a(href='/browse?species=Mouse') Mouse
+          li: a(href='/browse?species=Pony') Pony
+          li: a(href='/browse?species=Brony') Brony
+          li: a(href='/browse?species=Lizard') Lizard
+          li: a(href='/browse?species=Fox') Fox
+          li: a(href='/browse?species=Dinosaur') Dinosaur
+          li: a(href='/browse?species=Wolf') Wolf
+          li: a(href='/browse?species=Wolf') Seal
+          li: a(href='/browse?species=Bird') Bird
+          li: a(href='/browse?species=Fish') Fish
+          li: a(href='/browse?species=Penguin') Penguin
+          li: a(href='/browse?species=Raccoon') Raccoon
+          li: a(href='/browse?species=GROOT') GROOT
+          li: a(href='/browse?species=Other') Other
+    .col-xs-8
+      table#sort.sort.table(style='background-color: white;', data-user-lat=user.loc.lat, data-user-lng=user.loc.lng, data-user-name=user.loc.name)
+        thead
+          tr
+            th Photo
+            th.sort-header Username
+            th.sort-header Age
+            th.sort-header Sex
+            th.sort-header Species
+            th.sort-header Location
+            th.sort-header Height
+            th.sort-header Body Type
+        tbody
+          each user in users
+            tr(data-name=user.loc.name, data-lat=user.loc.lat, data-lng=user.loc.lng)
+              td#Primary(style='background-image: url(#{user.primaryPhoto})')
+              td: a(href='/farm/users/#{user._id}')= user.username
+              td= user.age
+              td= user.sex
+              td= user.species
+              td= user.loc.name
+              td= user.height
+              td= user.bodyType
+    .col-xs-1
+
+block scripts
+  script(src='/js/user/main.js')
+  script(src='/js/vendor/tablesort.min.js')
+  script(src='/js/user/tablesort.js')
+

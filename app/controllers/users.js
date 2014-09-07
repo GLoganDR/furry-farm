@@ -2,6 +2,7 @@
 
 var User    = require('../models/user'),
     moment  = require('moment'),
+    mp      = require('multiparty'),
     Message = require('../models/message');
 
 
@@ -15,7 +16,7 @@ exports.login = function(req, res){
 
 exports.logout = function(req, res){
   req.logout();
-  req.flash('notice', 'T.T.F.N');
+  req.flash('T.T.F.N');
   res.redirect('/');
 };
 
@@ -28,6 +29,34 @@ exports.create = function(req, res){
     }
   });
 };
+exports.contact = function(req, res){
+  res.render('users/contact');
+};
+
+exports.send = function(req, res){
+  res.redirect('/messages');
+};
+
+exports.edit = function(req, res){
+  res.render('users/edit');
+};
+
+exports.uploadPhoto = function(req, res){
+  User.findById(req.user._id.toString(), function(err, user){
+    var form = new mp.Form();
+    form.parse(req, function(err, fields, files){
+      user.uploadPhoto(files, function(){
+        res.redirect('/users/edit');
+      });
+    });
+  });
+};
+
+exports.update = function(req, res){
+  res.locals.user.save(req.body, function(){
+    res.redirect('/farm/users/' + res.locals.user._id);
+  });
+};
 
 exports.messages = function(req, res){
   req.user.messages(function(err, messages){
@@ -38,6 +67,15 @@ exports.messages = function(req, res){
 exports.message = function(req, res){
   Message.read(req.params.msgId, function(err, message){
     res.render('users/message', {message:message, moment:moment});
+  });
+};
+
+exports.send = function(req, res){
+  User.findById(req.params.toId, function(err, receiver){
+    console.log(req.body);
+    req.user.send(receiver, req.body, function(){
+      res.redirect('/messages');
+    });
   });
 };
 
@@ -67,6 +105,39 @@ exports.lick = function(req, res){
   User.addLick(req.params.lickee, req.user._id, function(err, savedItem){
     req.flash('success', 'You licked someone! View them in your favorites.');
     res.redirect('/farm/users/' + req.params.lickee);
+  });
+};
+
+exports.browse = function(req, res){
+  var filter = req.query || {isVisible:true};
+  User.find(filter, function(err, users){
+    res.render('users/browse', {users:users});
+  });
+};
+
+exports.lickIndex = function(req, res){
+  User.displayLicks(req.user._id, function(licks){
+    User.displayProposals(req.user._id, function(proposals, users){
+      res.render('users/licks', {licks: licks, proposals: proposals, users: users});
+    });
+  });
+};
+
+exports.propose = function(req, res){
+  User.propose(req.params.lickeeId, req.user._id, function(){
+    res.redirect('/user/licks');
+  });
+};
+
+exports.acceptProposal = function(req, res){
+  req.user.acceptProposal(req.params.fromId, req.body.proposalId, function(){
+    res.redirect('/user/licks');
+  });
+};
+
+exports.declineProposal = function(req, res){
+  req.user.declineProposal(req.params.fromId, req.body.proposalId, function(){
+    res.redirect('/user/licks');
   });
 };
 

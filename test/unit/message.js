@@ -26,9 +26,9 @@ describe('Message', function(){
   describe('constructor', function(){
     it('should create a new Message object', function(){
       var senderId   = Mongo.ObjectID(),
-          receiverId = Mongo.ObjectID(),
-          body       = 'This is the text of the message',
-          m          = new Message(senderId, receiverId, body);
+      receiverId = Mongo.ObjectID(),
+      body       = 'This is the text of the message',
+      m          = new Message(senderId, receiverId, body);
       expect(m).to.be.instanceof(Message);
       expect(m.date).to.be.instanceof(Date);
       expect(m.senderId).to.be.instanceof(Mongo.ObjectID);
@@ -40,14 +40,11 @@ describe('Message', function(){
     it('should display messages for a given user', function(done){
       var u = '000000000000000000000002';
       Message.messages(u, function(err, messages){
-        console.log('######', messages);
         expect(messages.length).to.equal(1);
         done();
       });
     });
   });
-
-
 
 
 
