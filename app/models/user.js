@@ -161,7 +161,7 @@ User.addLick = function(lickedPerson, loggedInUser, cb){
 
 User.displayLicks = function(userId, cb){
   User.findById(userId, function(err, user){
-    if(!user.licks.length) { return cb([]); }
+    if(!user.licks) { return cb([]); }
 
     async.map(user.licks, function(lick, cb){
       User.findById(lick, function(err, u){
