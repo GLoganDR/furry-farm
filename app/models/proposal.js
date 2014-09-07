@@ -25,8 +25,6 @@ Proposal.find = function(userId, cb){
   Proposal.collection.find({receiverId: _id}).toArray(cb);
 };
 
-//Proposal.create
-
 //Proposal.accept
 
 //Proposal.decline

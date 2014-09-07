@@ -231,7 +231,7 @@ describe('users', function(){
       .post('/user/000000000000000000000003/propose')
       .set('cookie', cookie)
       .end(function(err, res){
-  //      expect(res.status).to.equal(302);
+        expect(res.status).to.equal(302);
         done();
       });
     });

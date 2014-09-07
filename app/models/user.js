@@ -190,7 +190,14 @@ User.displayProposals = function(userId, cb){
 
 };
 
+//needs testing
+User.propose = function(to, from, cb){
+  var p = new Proposal();
+  p.receiverId = to;
+  p.fromId = from;
 
+  Proposal.collection.save(p, cb);
+};
 
 module.exports = User;
 
