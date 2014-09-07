@@ -107,6 +107,21 @@ describe('User', function(){
     });
   });
 
+  /*
+  // test still under construction
+  describe('#acceptProposal', function(){
+    it('should accept a proposal', function(done){
+      var u = new User();
+      u._id = '000000000000000000000001';
+      User.propose('000000000000000000000003', u._id, function(err, proposal){
+        expect(proposal._id).to.be.instanceof(Mongo.ObjectID);
+        expect(proposal.receiverId).to.equal('000000000000000000000003');
+        expect(proposal.fromId).to.equal('000000000000000000000001');
+        done();
+      });
+    });
+  });
+*/
 
 
 
