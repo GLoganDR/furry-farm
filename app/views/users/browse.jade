@@ -44,28 +44,31 @@ block content
           li: a(href='/browse?species=GROOT') GROOT
           li: a(href='/browse?species=Other') Other
     .col-xs-8
-      table#sort.sort.table(style='background-color: white;', data-user-lat=user.loc.lat, data-user-lng=user.loc.lng, data-user-name=user.loc.name)
-        thead
-          tr
-            th Photo
-            th.sort-header Username
-            th.sort-header Age
-            th.sort-header Sex
-            th.sort-header Species
-            th.sort-header Location
-            th.sort-header Height
-            th.sort-header Body Type
-        tbody
-          each user in users
-            tr(data-name=user.loc.name, data-lat=user.loc.lat, data-lng=user.loc.lng)
-              td#Primary(style='background-image: url(#{user.primaryPhoto})')
-              td: a(href='/farm/users/#{user._id}')= user.username
-              td= user.age
-              td= user.sex
-              td= user.species
-              td= user.loc.name
-              td= user.height
-              td= user.bodyType
+      -if(user.loc)
+        table#sort.sort.table(style='background-color: white;', data-user-lat=user.loc.lat, data-user-lng=user.loc.lng, data-user-name=user.loc.name)
+      -else
+        table#sort.sort.table(style='background-color: white;', data-user-lat='36.1667', data-user-lng='-86.7833', data-user-name='Nashville, TN')
+          thead
+            tr
+              th Photo
+              th.sort-header Username
+              th.sort-header Age
+              th.sort-header Sex
+              th.sort-header Species
+              th.sort-header Location
+              th.sort-header Height
+              th.sort-header Body Type
+          tbody
+            each user in users
+              tr(data-name=user.loc.name, data-lat=user.loc.lat, data-lng=user.loc.lng)
+                td#Primary(style='background-image: url(#{user.primaryPhoto})')
+                td: a(href='/farm/users/#{user._id}')= user.username
+                td= user.age
+                td= user.sex
+                td= user.species
+                td= user.loc.name
+                td= user.height
+                td= user.bodyType
     .col-xs-1
 
 block scripts
