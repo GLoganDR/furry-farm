@@ -170,7 +170,6 @@ User.prototype.send = function(receiver, obj, cb){
       sendEmail(this.email, receiver.email, obj.body, cb);
       break;
     case 'internal':
-    console.log(receiver);
       Message.send(this._id, receiver._id, obj.body, cb);
   }
 };
