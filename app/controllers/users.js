@@ -16,7 +16,7 @@ exports.login = function(req, res){
 
 exports.logout = function(req, res){
   req.logout();
-  req.flash('T.T.F.N');
+  //req.flash('T.T.F.N');
   res.redirect('/');
 };
 
@@ -72,7 +72,6 @@ exports.message = function(req, res){
 
 exports.send = function(req, res){
   User.findById(req.params.toId, function(err, receiver){
-    console.log(req.body);
     req.user.send(receiver, req.body, function(){
       res.redirect('/messages');
     });
@@ -118,6 +117,7 @@ exports.browse = function(req, res){
 exports.congrats = function(req, res){
   res.render('users/congrats');
 };
+
 exports.lickIndex = function(req, res){
   User.displayLicks(req.user._id, function(licks){
     User.displayProposals(req.user._id, function(proposals, users){

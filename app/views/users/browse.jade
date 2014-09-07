@@ -1,5 +1,9 @@
 extends ../shared/template
 block content
+  if !user.loc.lat
+    -user.loc.lat = 36.1467
+    -user.loc.lng = -86.787
+    -user.loc.name = 'Nashville, TN'
   h2.browse Peruse the Farm!
   .row
     .col-xs-1
@@ -44,10 +48,7 @@ block content
           li: a(href='/browse?species=GROOT') GROOT
           li: a(href='/browse?species=Other') Other
     .col-xs-8
-      -if(user.loc)
         table#sort.sort.table(style='background-color: white;', data-user-lat=user.loc.lat, data-user-lng=user.loc.lng, data-user-name=user.loc.name)
-      -else
-        table#sort.sort.table(style='background-color: white;', data-user-lat='36.1667', data-user-lng='-86.7833', data-user-name='Nashville, TN')
           thead
             tr
               th Photo
