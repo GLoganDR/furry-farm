@@ -10,7 +10,7 @@ block content
             th Display Name
             th Photo 
             th Date Request
-      
+
               each lickee in licks
                 tr
                   td= lickee.username
@@ -20,8 +20,8 @@ block content
                       button.btn.btn-danger(type='submit') Propose a date!
       else
         .row You haven't licked anyone...
-    
-    
+
+
       if proposals
         table.table
               tr

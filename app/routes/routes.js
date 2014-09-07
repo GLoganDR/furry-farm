@@ -32,10 +32,13 @@ module.exports = function(app, express){
 
   //guest user access
   app.get('/', home.index);
+  app.get('/faqs', home.faq);
+  app.get('/about', home.about);
+  app.get('/contact', home.contact);
   app.get('/register', users.new);
   app.post('/register', users.create);
   app.get('/login', users.login);
-  app.post('/login', passport.authenticate('local',   {successRedirect:'/', failureRedirect:'/login', successFlash:'Successful Local Login!',   failureFlash:'Sorry, your local login was incorrect.'}));
+  app.post('/login', passport.authenticate('local',   {successRedirect:'/browse', failureRedirect:'/login', successFlash:'Successful Local Login!',   failureFlash:'Sorry, your local login was incorrect.'}));
   app.get('/auth/twitter', passport.authenticate('twitter'));
   app.get('/auth/twitter/callback', passport.authenticate('twitter',  {successRedirect:'/', failureRedirect:'/login', successFlash:'Twitter got you in!', failureFlash:'Sorry, your Twitter login did not work'}));
   app.get('/auth/google', passport.authenticate('google',             {scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']}));

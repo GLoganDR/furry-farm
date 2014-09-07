@@ -13,9 +13,11 @@
         if user
           li: a(href='/browse') The Farm
           li: a(href='/users/edit') Edit Profile
-          li: a(href='/licks') Favorites
           li: a(href='/cart'): i.fa.fa-shopping-cart.fa-lg &nbsp; Cart
           li: a(href='/user/licks') Your Licks
+          li: a(href='/faqs') FAQS
+          li: a(href='/about') About
+          li: a(href='/contact') Contact Us
           li
             form.navbar-form(method='post', action='/logout')
               .form-group
@@ -25,6 +27,9 @@
             span Messages &nbsp;
             span.badge= user.unread
         else
+          li: a(href='/faqs') FAQS
+          li: a(href='/about') About
+          li: a(href='/contact') Contact Us
           li: a(href='/register') Register
           li: a(href='/login') Login
           li: a(href='/auth/google'): i.fa.fa-google.fa-lg
