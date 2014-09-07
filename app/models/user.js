@@ -6,19 +6,21 @@ var bcrypt  = require('bcrypt'),
     _       = require('underscore-contrib'),
     twilio  = require('twilio'),
     Mailgun = require('mailgun-js'),
+    fs    = require('fs'),
+    path  = require('path'),
     async   = require('async');
 
 function User(){
 }
 
+Object.defineProperty(User, 'collection', {
+  get: function(){return global.mongodb.collection('users');}
+});
+
 User.find = function(filter, cb){
   filter.isVisible = true;
   User.collection.find(filter).toArray(cb);
 };
-
-Object.defineProperty(User, 'collection', {
-  get: function(){return global.mongodb.collection('users');}
-});
 
 User.findById = function(id, cb){
   var _id = Mongo.ObjectID(id);
@@ -69,6 +71,43 @@ User.facebookAuthenticate = function(token, secret, facebook, cb){
     user = {facebookId:facebook.id, username:facebook.username, type:'facebook'};
     User.collection.save(user, cb);
   });
+};
+
+User.prototype.uploadPhoto = function(files, cb){
+  var baseDir = __dirname + '/../static',
+      relDir  = '/img/' + this._id,
+      absDir  = baseDir + relDir,
+      exist = fs.existsSync(absDir),
+      oldIndex,
+      self = this;
+
+  if(!exist){fs.mkdirSync(absDir);} //check to see if directory already exists
+
+  var newPhotos = files.photos.map(function(photo, index){
+    if(!photo.size){return;}
+
+    //make sure there photos.length is even in existence
+    if(self.photos.length){
+      //set the index equal to the loop index + the self.photos.length
+      oldIndex = index + (self.photos.length - 1);
+    }
+    else {
+      oldIndex = index;
+    }
+
+    var ext      = path.extname(photo.path),
+        name     = oldIndex + ext,
+        absPath  = absDir + '/' + name,
+        relPath  = relDir + '/' + name;
+
+    fs.renameSync(photo.path, absPath);
+    return relPath;
+  });
+
+  newPhotos = _.compact(newPhotos); //shorten the new photos
+  this.photos = this.photos.concat(newPhotos); //add other old photos array with the new!
+
+  User.collection.save(this, cb);
 };
 
 User.prototype.save = function(o, cb){
@@ -124,13 +163,13 @@ User.addLick = function(lickedPerson, loggedInUser, cb){
 User.prototype.send = function(receiver, obj, cb){
   switch(obj.mtype){
     case 'text':
-      sendText(receiver.phone, obj.message, cb);
+      sendText(receiver.phone, obj.body, cb);
       break;
     case 'email':
-      sendEmail(this.email, receiver.email, obj.message, cb);
+      sendEmail(this.email, receiver.email, obj.body, cb);
       break;
     case 'internal':
-      Message.send(this._id, receiver._id, obj.message, cb);
+      Message.send(this._id, receiver._id, obj.body, cb);
   }
 };
 
@@ -158,7 +197,9 @@ function sendText(to, body, cb){
 
 function sendEmail(from, to, subject, message, cb){
   var mailgun = new Mailgun({apiKey:process.env.MGKEY, domain:process.env.MGDOM}),
-      data    = {from:from, to:to, subject:subject, text:message};
+      data    = {from:'admin@furryfarm.com', to:'jessicafraines@gmail.com', subject:subject, text:message};
+      console.log(process.env.MGKEY);
+      console.log(mailgun);
 
   mailgun.messages().send(data, cb);
 }

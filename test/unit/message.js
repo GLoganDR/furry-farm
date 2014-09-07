@@ -5,7 +5,6 @@
 
 var expect    = require('chai').expect,
     Message   = require('../../app/models/message'),
-    User      = require('./user'),
     dbConnect = require('../../app/lib/mongodb'),
     cp        = require('child_process'),
     Mongo     = require('mongodb'),
@@ -41,48 +40,11 @@ describe('Message', function(){
     it('should display messages for a given user', function(done){
       var u = '000000000000000000000002';
       Message.messages(u, function(err, messages){
-        console.log('######', messages);
         expect(messages.length).to.equal(1);
         done();
       });
     });
   });
-
-  describe('#send', function(){
-    it('should send a text message to a user', function(done){
-      User.findById('000000000000000000000001', function(err, sender){
-        User.findById('000000000000000000000002', function(err, receiver){
-          sender.send(receiver, {mtype:'text', message:'hello'}, function(err, response){
-            expect(response.sid).to.be.ok;
-            done();
-          });
-        });
-      });
-    });
-  });
-
-  it('should send an email message to a user', function(done){
-    User.findById('000000000000000000000001', function(err, sender){
-      User.findById('000000000000000000000002', function(err, receiver){
-        sender.send(receiver, {mtype:'email', message:'hello'}, function(err, response){
-          expect(response.sid).to.be.ok;
-          done();
-        });
-      });
-    });
-  });
-
-  it('should send an internal message to a user', function(done){
-    User.findById('000000000000000000000001', function(err, sender){
-      User.findById('000000000000000000000002', function(err, receiver){
-        sender.send(receiver, {mtype:'internal', message:'hello'}, function(err, response){
-          expect(response.sid).to.be.ok;
-          done();
-        });
-      });
-    });
-  });
-
 
 
 

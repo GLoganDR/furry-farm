@@ -6,7 +6,7 @@ var async = require('async'),
 function Message(senderId, receiverId, message){
   this.senderId   = senderId;
   this.receiverId = receiverId;
-  this.message    = message.body;
+  this.message    = message;
   this.date       = new Date();
   this.isRead     = false;
 }
@@ -41,9 +41,7 @@ Message.send = function(senderId, receiverId, message, cb){
 module.exports = Message;
 
 function iterator(msg, cb){
-  console.log('%%%%%%%', msg);
   require('./user').findById(msg.senderId, function(err, sender){
-    console.log('$$##%%', msg);
     msg.sender = sender;
     cb(null, msg);
   });

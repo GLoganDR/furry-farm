@@ -19,7 +19,7 @@ describe('users', function(){
     cp.execFile(__dirname + '/../scripts/clean-db.sh', [process.env.DB], {cwd:__dirname + '/../scripts'}, function(err, stdout, stderr){
       request(app)
       .post('/login')
-      .send('email=bob@aol.com')
+      .send('email=furryfarm@mailinator.com')
       .send('password=1234')
       .end(function(err, res){
         cookie = res.headers['set-cookie'][0];
@@ -60,8 +60,8 @@ describe('users', function(){
       .set('cookie', cookie)
       .end(function(err, res){
         expect(res.status).to.equal(200);
-        expect(res.text).to.include('bob@aol.com');
-        expect(res.text).to.not.include('sue@aol.com');
+        expect(res.text).to.include('furryfarm@mailinator.com');
+        expect(res.text).to.not.include('m8r-ghfp931@mailinator.com');
         done();
       });
     });
@@ -239,7 +239,7 @@ describe('users', function(){
     });
   });
 
-  /*describe('get /messages/000000000000000000000001/send', function(){
+  describe('get /messages/000000000000000000000001/send', function(){
     it('should send an email message to a user', function(done){
       request(app)
       .post('/messages/000000000000000000000001/send')
@@ -250,7 +250,7 @@ describe('users', function(){
         done();
       });
     });
-  });*/
+  });
 
 
 });//closing bracket
