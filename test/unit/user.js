@@ -46,7 +46,7 @@ describe('User', function(){
   describe('#save', function(){
     it('should save a user', function(done){
       var u = new User(),
-          o = {x:3, visible:'public', foo:'bar'};
+      o = {x:3, visible:'public', foo:'bar'};
 
       u.baz = 'bim';
       u.save(o, function(err, user){
@@ -69,6 +69,40 @@ describe('User', function(){
     });
   });
 
+  describe('#send', function(){
+    it('should send a text message to a user', function(done){
+      User.findById('000000000000000000000001', function(err, sender){
+        User.findById('000000000000000000000002', function(err, receiver){
+          sender.send(receiver, {mtype:'text', body:'hello'}, function(err, response){
+            expect(response.sid).to.be.ok;
+            done();
+          });
+        });
+      });
+    });
+
+    it('should send an email message to a user', function(done){
+      User.findById('000000000000000000000001', function(err, sender){
+        User.findById('000000000000000000000002', function(err, receiver){
+          sender.send(receiver, {mtype:'email', body:'hello'}, function(err, response){
+            expect(response).to.be.ok;
+            done();
+          });
+        });
+      });
+    });
+
+    it('should send an internal message to a user', function(done){
+      User.findById('000000000000000000000001', function(err, sender){
+        User.findById('000000000000000000000002', function(err, receiver){
+          sender.send(receiver, {mtype:'internal', body:'hello'}, function(err, response){
+            expect(response).to.be.ok;
+            done();
+          });
+        });
+      });
+    });
+  });
   describe('.displayLicks', function(){
     it('should should display licks for the lick page', function(done){
       var u = new User();
@@ -122,7 +156,5 @@ describe('User', function(){
     });
   });
 */
-
-
 
 });//final closing

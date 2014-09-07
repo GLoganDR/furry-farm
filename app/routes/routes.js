@@ -32,15 +32,21 @@ module.exports = function(app, express){
 
   //guest user access
   app.get('/', home.index);
+  app.get('/faqs', home.faq);
+  app.get('/about', home.about);
+  app.get('/contact', home.contact);
   app.get('/register', users.new);
   app.post('/register', users.create);
   app.get('/login', users.login);
-  app.post('/login', passport.authenticate('local',   {successRedirect:'/', failureRedirect:'/login', successFlash:'Successful Local Login!',   failureFlash:'Sorry, your local login was incorrect.'}));
+  app.post('/login', passport.authenticate('local',   {successRedirect:'/browse', failureRedirect:'/login', successFlash:'Successful Local Login!',   failureFlash:'Sorry, your local login was incorrect.'}));
   app.get('/auth/twitter', passport.authenticate('twitter'));
   app.get('/auth/twitter/callback', passport.authenticate('twitter',  {successRedirect:'/', failureRedirect:'/login', successFlash:'Twitter got you in!', failureFlash:'Sorry, your Twitter login did not work'}));
   app.get('/auth/google', passport.authenticate('google',             {scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']}));
   app.get('/auth/google/callback', passport.authenticate('google',    {successRedirect:'/', failureRedirect:'/login', successFlash:'Google got you in!',  failureFlash:'Sorry, your Google login did not work'}));
   app.get('/auth/facebook', passport.authenticate('facebook'));
+  app.get('/auth/facebook/callback', passport.authenticate('facebook',  {successRedirect:'/', failureRedirect:'/login', successFlash:'Facebook got you in!', failureFlash:'Sorry, your Facebook login did not work'}));
+  app.get('/messages', users.messages);
+  app.get('/messages/:msgId', users.message);
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {successRedirect:'/', failureRedirect:'/login', successFlash:'Facebook got you in!', failureFlash:'Sorry, your Facebook login did not work'}));
 
 
@@ -65,6 +71,8 @@ module.exports = function(app, express){
   app.get('/farm/users/:userId', users.displayProfile);
   app.post('/user/:toId/wag', users.wag);
   app.post('/user/:lickee/lick', users.lick);
+  app.get('/messages/:toId/send', users.contact);
+  app.post('/messages/:toId/send', users.send);
   app.get('/user/licks', users.lickIndex);
   app.post('/user/:lickeeId/propose', users.propose);
   app.delete('/proposal/:fromId/accept', users.acceptProposal);

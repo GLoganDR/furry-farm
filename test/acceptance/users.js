@@ -19,7 +19,7 @@ describe('users', function(){
     cp.execFile(__dirname + '/../scripts/clean-db.sh', [process.env.DB], {cwd:__dirname + '/../scripts'}, function(err, stdout, stderr){
       request(app)
       .post('/login')
-      .send('email=bob@aol.com')
+      .send('email=furryfarm@mailinator.com')
       .send('password=1234')
       .end(function(err, res){
         cookie = res.headers['set-cookie'][0];
@@ -35,6 +35,80 @@ describe('users', function(){
       .end(function(err, res){
         expect(res.status).to.equal(200);
         expect(res.text).to.include('Register');
+        done();
+      });
+    });
+  });
+
+  describe('get /cart', function(){
+    it('should show the Cart page', function(done){
+      request(app)
+      .get('/cart')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Shopping Cart');
+        done();
+      });
+    });
+  });
+
+  describe('get /user/:userId/gifts', function(){
+    it('should show the Gifts page', function(done){
+      request(app)
+      .get('/user/:userId/gifts')
+      .set('cookie', cookie)
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Gifts');
+        done();
+      });
+    });
+  });
+
+  describe('get /', function(){
+    it('should show the Home page', function(done){
+      request(app)
+      .get('/')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Mission Statement');
+        done();
+      });
+    });
+  });
+
+  describe('get /contact', function(){
+    it('should show the contact page', function(done){
+      request(app)
+      .get('/contact')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('Contact');
+        done();
+      });
+    });
+  });
+
+  describe('get /about', function(){
+    it('should show the About page', function(done){
+      request(app)
+      .get('/about')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('About');
+        done();
+      });
+    });
+  });
+
+  describe('get /faqs', function(){
+    it('should show the FAQ page', function(done){
+      request(app)
+      .get('/faqs')
+      .end(function(err, res){
+        expect(res.status).to.equal(200);
+        expect(res.text).to.include('FAQs');
         done();
       });
     });
@@ -60,8 +134,8 @@ describe('users', function(){
       .set('cookie', cookie)
       .end(function(err, res){
         expect(res.status).to.equal(200);
-        expect(res.text).to.include('bob@aol.com');
-        expect(res.text).to.not.include('sue@aol.com');
+        expect(res.text).to.include('furryfarm@mailinator.com');
+        expect(res.text).to.not.include('m8r-ghfp931@mailinator.com');
         done();
       });
     });
@@ -213,6 +287,19 @@ describe('users', function(){
     });
   });
 
+  describe('get /messages/000000000000000000000001/send', function(){
+    it('should send a text message to a user', function(done){
+      request(app)
+      .post('/messages/000000000000000000000001/send')
+      .set('cookie', cookie)
+      .send('mtype=text&message=hello')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
   describe('get /user/licks', function(){
     it('should take the user to the messages page', function(done){
       request(app)
@@ -225,6 +312,20 @@ describe('users', function(){
     });
   });
 
+  describe('get /messages/000000000000000000000001/send', function(){
+    it('should send an internal message to a user', function(done){
+      request(app)
+      .post('/messages/000000000000000000000001/send')
+      .set('cookie', cookie)
+      .send('mtype=internal&message=hello')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
+
   describe('post /user/:lickeeId/propose', function(){
     it('should should add favorite to someones list', function(done){
       request(app)
@@ -236,6 +337,20 @@ describe('users', function(){
       });
     });
   });
+
+  describe('get /messages/000000000000000000000001/send', function(){
+    it('should send an email message to a user', function(done){
+      request(app)
+      .post('/messages/000000000000000000000001/send')
+      .set('cookie', cookie)
+      .send('mtype=email&message=hello')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
+        done();
+      });
+    });
+  });
+
 
 });//closing bracket
 
