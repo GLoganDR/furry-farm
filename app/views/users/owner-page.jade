@@ -11,7 +11,7 @@ block content
     .col-xs-3
       .otherPhotos
         .header2 Photos
-        if user.photos 
+        if user.photos
           each photo in user.photos
             .minorPhoto(style='background-image: url(#{photo})')
         else

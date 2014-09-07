@@ -20,4 +20,9 @@ config.facebook = {
   callbackUrl   : 'http://jessica-vm.com:3334/auth/facebook/callback'
 };
 
+config.stripe = {
+  publishKey : 'pk_test_hITBCSvRquKbXqH4FnLGUclK',
+  secretKey  : process.env.STRIPE_SECRET
+};
+
 module.exports = config;

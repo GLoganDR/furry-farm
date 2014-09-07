@@ -12,6 +12,8 @@ var morgan         = require('morgan'),
     security       = require('../lib/security'),
     //debug          = require('../lib/debug'),
     home           = require('../controllers/home'),
+    cart           = require('../controllers/cart'),
+    gifts          = require('../controllers/gifts'),
     users          = require('../controllers/users');
 
 module.exports = function(app, express){
@@ -30,10 +32,13 @@ module.exports = function(app, express){
 
   //guest user access
   app.get('/', home.index);
+  app.get('/faqs', home.faq);
+  app.get('/about', home.about);
+  app.get('/contact', home.contact);
   app.get('/register', users.new);
   app.post('/register', users.create);
   app.get('/login', users.login);
-  app.post('/login', passport.authenticate('local',   {successRedirect:'/', failureRedirect:'/login', successFlash:'Successful Local Login!',   failureFlash:'Sorry, your local login was incorrect.'}));
+  app.post('/login', passport.authenticate('local',   {successRedirect:'/browse', failureRedirect:'/login', successFlash:'Successful Local Login!',   failureFlash:'Sorry, your local login was incorrect.'}));
   app.get('/auth/twitter', passport.authenticate('twitter'));
   app.get('/auth/twitter/callback', passport.authenticate('twitter',  {successRedirect:'/', failureRedirect:'/login', successFlash:'Twitter got you in!', failureFlash:'Sorry, your Twitter login did not work'}));
   app.get('/auth/google', passport.authenticate('google',             {scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']}));
@@ -54,6 +59,13 @@ module.exports = function(app, express){
   app.put('/users/edit', users.update);
   app.post('/users/edit/photo', users.uploadPhoto);
   app.get('/browse', users.browse);
+  app.get('/user/:userId/gifts', gifts.index);
+  app.post('/cart', cart.add);
+  app.get('/cart', cart.index);
+  app.delete('/cart', cart.destroy);
+  app.post('/charge', cart.purchase);
+  app.get('/congrats', users.congrats);
+
   app.get('/messages', users.messages);
   app.get('/messages/:msgId', users.message);
   app.get('/farm/users/:userId', users.displayProfile);

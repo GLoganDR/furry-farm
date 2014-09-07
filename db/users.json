@@ -43,6 +43,8 @@
   "age" : 38,
   "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
   "isVisible" : true,
+  "primaryPhoto": "http://fc09.deviantart.net/fs70/i/2012/161/8/e/miss_piggy_by_ilurveninjaman-d52ynjr.jpg",
+  "photos": ["http://images.halloweencostumes.com/products/9037/1-1/miss-piggy-wig.jpg"],
   "loc" : {"name":"Amsterdam, Netherlands", "lat":52.366667, "lng":4.9},
   "sex" : "Female",
   "phone" : "+15005550006",
