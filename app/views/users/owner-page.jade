@@ -34,9 +34,15 @@ block content
         hr
         li Species: #{user.species}
         hr
-        li Wags: #{user.wags.length}
+        if user.wags
+          li= 'Wags:' +  user.wags.length
+        else
+          li Wags: 0
         hr
-        li Licks: #{user.licks.length}
+        if user.licks
+          li= 'Licks:' +  user.licks.length
+        else
+          li Licks: 0
         hr
         li Kids?: No
         hr

@@ -34,6 +34,7 @@ User.register = function(o, cb){
   User.collection.findOne({email:o.email}, function(err, user){
     if(user){return cb();}
     o.password = bcrypt.hashSync(o.password, 10);
+    o.loc = {};
     o.type = 'local';
     User.collection.save(o, cb);
   });
@@ -51,7 +52,7 @@ User.localAuthenticate = function(email, password, cb){
 User.twitterAuthenticate = function(token, secret, twitter, cb){
   User.collection.findOne({twitterId:twitter.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {twitterId:twitter.id, username:twitter.username, displayName:twitter.displayName, type:'twitter'};
+    user = {twitterId:twitter.id, username:twitter.username, displayName:twitter.displayName, type:'twitter', loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -59,7 +60,7 @@ User.twitterAuthenticate = function(token, secret, twitter, cb){
 User.googleAuthenticate = function(token, secret, google, cb){
   User.collection.findOne({googleId:google.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {googleId:google.id, username:google.displayName, type:'google'};
+    user = {googleId:google.id, username:google.displayName, type:'google', loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -67,7 +68,7 @@ User.googleAuthenticate = function(token, secret, google, cb){
 User.facebookAuthenticate = function(token, secret, facebook, cb){
   User.collection.findOne({facebookId:facebook.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {facebookId:facebook.id, username:facebook.username, type:'facebook'};
+    user = {facebookId:facebook.id, username:facebook.username, type:'facebook', loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -79,6 +80,8 @@ User.prototype.uploadPhoto = function(files, cb){
       exist = fs.existsSync(absDir),
       oldIndex,
       self = this;
+
+  if(!this.photos){ this.photos = []; }
 
   if(!exist){fs.mkdirSync(absDir);} //check to see if directory already exists
 
@@ -134,10 +137,16 @@ User.displayProfile = function(userId, cb){
   var _id = Mongo.ObjectID(userId);
   User.collection.findOne({_id: _id, isVisible: true}, function(err, user){
     if(!user){ return cb(err, user);}
-    async.map(user.wags, userIterator, function(err, waggers){
-      user.waggers = waggers;
+    if(user.wags){
+      async.map(user.wags, userIterator, function(err, waggers){
+        user.waggers = waggers;
+        cb(err, user);
+      });
+    }
+    else {
       cb(err, user);
-    });
+    }
+
   });
 };
 

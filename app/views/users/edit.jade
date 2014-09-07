@@ -3,7 +3,7 @@ block content
   h2 Edit Profile
   .row
     .col-xs-12
-      form#editProfileForm(role='form', method='post', action='/users/edit')
+      form(role='form', id='editProfileForm', method='post', action='/users/edit')
         .row
           .col-xs-1
           .col-xs-4
@@ -51,7 +51,7 @@ block content
                   option(value='yes') Yes
             .form-group
               label(for='locName') Location:
-              input.form-control#locName(type='text', name='loc[name]', value=(user.loc.name || 'location?'))
+              input.form-control#locName(type='text', name='loc[name]', value=(user.loc.name || ''))
             .form-group
               label(for='email') Email:
               input.form-control#email(type='email', name='email', value=(user.email || 'email?'))
@@ -70,13 +70,6 @@ block content
                 .col-xs-12
                     .header2 Primary Photo
                     #editPrimary(style='background-image: url(#{user.primaryPhoto})')
-                    .header2 Other Photos
-                    .photoDiv
-                      if user.photos
-                        each photo in user.photos
-                          .profilePhotos.thumbnail(style='background-image:url(#{photo});')
-                      else
-                        p You haven't added any photos...
           .col-xs-2
         .row
           .col-xs-5
@@ -91,7 +84,7 @@ block content
                 input(type='radio' name='visible' value='private', checked=!user.isVisible)
                 span Private
           .col-xs-5
-            button.btn.btn-primary(type='submit') Submit
+        button.btn.btn-primary(type='submit' form='editProfileForm') Submit
 
   .row
     .col-xs-6
@@ -102,6 +95,16 @@ block content
              input.form-control#photos(type='file', name='photos', multiple=true)
           button.btn.btn-success(type='submit') Upload Photos
     .col-xs-1
+  .row
+    .header2 Other Photos
+       .photoDiv
+           if user.photos
+              each photo,index in user.photos
+                  form#smallPhotoForm(role='form', method='post', action='/user/change/:index')
+                     button(type='submit') Switch Primary
+                     .profilePhotos.thumbnail(style='background-image:url(#{photo});')
+           else
+              p You haven't added any photos...
 
 block scripts
   script(src='/js/user/editProfile.js')
