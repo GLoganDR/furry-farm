@@ -99,6 +99,9 @@ exports.browse = function(req, res){
   });
 };
 
+exports.congrats = function(req, res){
+  res.render('users/congrats');
+};
 exports.lickIndex = function(req, res){
   User.displayLicks(req.user._id, function(licks){
     User.displayProposals(req.user._id, function(proposals, users){

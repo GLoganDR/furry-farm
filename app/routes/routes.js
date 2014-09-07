@@ -12,6 +12,8 @@ var morgan         = require('morgan'),
     security       = require('../lib/security'),
     //debug          = require('../lib/debug'),
     home           = require('../controllers/home'),
+    cart           = require('../controllers/cart'),
+    gifts          = require('../controllers/gifts'),
     users          = require('../controllers/users');
 
 module.exports = function(app, express){
@@ -51,6 +53,13 @@ module.exports = function(app, express){
   app.put('/users/edit', users.update);
   app.post('/users/edit/photo', users.uploadPhoto);
   app.get('/browse', users.browse);
+  app.get('/user/:userId/gifts', gifts.index);
+  app.post('/cart', cart.add);
+  app.get('/cart', cart.index);
+  app.delete('/cart', cart.destroy);
+  app.post('/charge', cart.purchase);
+  app.get('/congrats', users.congrats);
+
   app.get('/messages', users.messages);
   app.get('/messages/:msgId', users.message);
   app.get('/farm/users/:userId', users.displayProfile);
