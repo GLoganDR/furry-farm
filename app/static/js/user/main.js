@@ -7,6 +7,8 @@
 
   $(document).ready(function(){
 
+    $('#background').tubular({videoId: 'Z2wThqRVnso'});
+
     var pos = getPosition(),
         positions = getPositions();
 

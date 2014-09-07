@@ -5,6 +5,7 @@
 
 var expect    = require('chai').expect,
     User      = require('../../app/models/user'),
+    Mongo     = require('mongodb'),
     dbConnect = require('../../app/lib/mongodb'),
     cp        = require('child_process'),
     db        = 'furry-farm-test';
@@ -67,5 +68,44 @@ describe('User', function(){
       });
     });
   });
+
+  describe('.displayLicks', function(){
+    it('should should display licks for the lick page', function(done){
+      var u = new User();
+      u._id = '000000000000000000000001';
+
+      User.displayLicks(u._id, function(licks){
+        expect(licks).to.have.length(1);
+        done();
+      });
+    });
+  });
+
+  describe('.displayProposals', function(){
+    it('should display proposals on the licks page', function(done){
+      var u = new User();
+      u._id = '000000000000000000000001';
+
+      User.displayProposals(u._id, function(proposals){
+        expect(proposals).to.have.length(2);
+        done();
+      });
+    });
+  });
+
+  describe('.propose', function(){
+    it('should create a new proposal', function(done){
+      var u = new User();
+      u._id = '000000000000000000000001';
+
+      User.propose('000000000000000000000003', u._id, function(err, proposal){
+        expect(proposal._id).to.be.instanceof(Mongo.ObjectID);
+        done();
+      });
+    });
+  });
+
+
+
 
 });//final closing

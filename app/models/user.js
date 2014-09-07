@@ -4,9 +4,10 @@ var bcrypt  = require('bcrypt'),
     Message = require('./message'),
     Mongo   = require('mongodb'),
     _       = require('underscore-contrib'),
-    fs    = require('fs'),
-    path  = require('path'),
-    async   = require('async');
+    fs      = require('fs'),
+    path    = require('path'),
+    async   = require('async'),
+    Proposal = require('./proposal');
 
 function User(){
 }
@@ -158,8 +159,69 @@ User.addLick = function(lickedPerson, loggedInUser, cb){
   });
 };
 
+User.displayLicks = function(userId, cb){
+  User.findById(userId, function(err, user){
+    if(!user.licks) { return cb([]); }
+
+    async.map(user.licks, function(lick, cb){
+      User.findById(lick, function(err, u){
+        cb(null, u);
+      });
+    }, function(err, licks){
+      cb(licks);
+    });
+  });
+
+};
+
+
+User.displayProposals = function(userId, cb){
+  Proposal.find(userId, function(err, proposals){
+    if(!proposals.length) { return cb([]); }
+
+    async.map(proposals, function(from, cb){
+      User.findById(from.fromId, function(err, u){
+        cb(null, u);
+      });
+    }, function(err, users){
+      cb(proposals, users);
+    });
+  });
+
+};
+
+//NEEDS TESTING
+User.propose = function(to, from, cb){
+  var p = new Proposal();
+  p.receiverId = to;
+  p.fromId = from;
+
+  Proposal.collection.save(p, cb);
+};
 
 module.exports = User;
+
+//NEEDS TESTING
+User.prototype.acceptProposal = function(fromId, proposalId, cb){
+  var self = this;
+  User.findById(fromId, function(err, user){
+    var body = (user.username || user.email)  + ', ' + (self.username || 'a Furry Farm user') + ' has accepted your date proposal. Way to go!';
+    txtMsg(user.phone, body, function(err, response){
+      Proposal.collection.remove({_id: Mongo.ObjectID(proposalId)}, cb);
+    });
+  });
+};
+
+//NEEDS TESTING
+User.prototype.declineProposal = function(fromId, proposalId, cb){
+  var self = this;
+  User.findById(fromId, function(err, user){
+    var body = (user.username || user.email)  + ', ' + (self.username || 'a Furry Farm user') + ' has declined your date proposal. There is plenty of fish though. Don\'t give up!';
+    txtMsg(user.phone, body, function(err, response){
+      Proposal.collection.remove({_id: Mongo.ObjectID(proposalId)}, cb);
+    });
+  });
+};
 
 //Private Functions
 function userIterator(userId, cb){
@@ -168,4 +230,16 @@ function userIterator(userId, cb){
     userList = user;
     cb(null, userList);
   });
+}
+
+
+function txtMsg(to, body, cb){
+  if(!to){return cb();}
+
+  var accountSid = process.env.TWSID,
+      authToken  = process.env.TWTOK,
+      from       = process.env.FROM,
+      client     = require('twilio')(accountSid, authToken);
+
+  client.messages.create({to:to, from:from, body:body}, cb);
 }

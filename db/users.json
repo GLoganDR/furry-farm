@@ -14,7 +14,7 @@
   "primaryPhoto": "http://fc01.deviantart.net/fs8/i/2005/306/2/7/Harvey_Birdman_by_Walmsley.jpg",
   "description": "I'm a bird first and a man second. BIIIIIIIIIIRRRD MAAANNNNNN!",
   "wags": ["000000000000000000000002", "000000000000000000000003"],
-  "licks": []
+  "licks": ["000000000000000000000003"]
 }
 {
   "_id" : {"$oid":"000000000000000000000002"},
