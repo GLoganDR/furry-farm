@@ -1,0 +1,52 @@
+extends ../shared/template
+block content
+  h2 People You've Licked
+  .row
+    .col-xs-3
+    .col-xs-6
+      if licks
+        table.table
+          tr
+            th Display Name
+            th Photo 
+            th Date Request
+      
+              each lickee in licks
+                tr
+                  td= lickee.username
+                  td: img(src=lickee.primaryPhoto || '/img/no.jpeg' style='width: 25%')
+                  td
+                    form(method='post' action='/user/#{lickee._id}/propose')
+                      button.btn.btn-danger(type='submit') Propose a date!
+      else
+        .row You haven't licked anyone...
+    
+    
+      if proposals
+        table.table
+              tr
+                th Display Name
+                th Photo
+                th Accept
+                th Decline
+                  each proposal, index in proposals
+                    tr
+                      td= users[index].username
+                      td: img(src=users[index].primaryPhoto || '/img/no.jpeg' style='width: 25%')
+                      td
+                        form(method='post' action='/proposal/#{proposal.fromId}/accept')
+                          input(type='hidden', name='proposalId' value=proposal._id)
+                          input(type='hidden', name='_method', value='delete')
+
+                          button.btn.btn-danger(type='submit') Accept
+                      td
+                        form(method='post' action='/proposal/#{proposal.fromId}/decline')
+                          input(type='hidden', name='proposalId' value=proposal._id)
+                          input(type='hidden', name='_method', value='delete')
+                          button.btn.btn-danger(type='submit') Decline
+      else
+        .row Nobody has sent you a date proposal...
+    .col-xs-3
+
+
+block scripts

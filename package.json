@@ -59,7 +59,8 @@
     "request": "^2.40.0",
     "stripe": "^2.8.0",
     "tablesort": "^1.7.0",
-    "underscore-contrib": "^0.3.0"
+    "underscore-contrib": "^0.3.0",
+    "twilio": "~1.7.0"
   },
   "devDependencies": {
     "blanket": "^1.1.6",
