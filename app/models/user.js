@@ -4,19 +4,21 @@ var bcrypt  = require('bcrypt'),
     Message = require('./message'),
     Mongo   = require('mongodb'),
     _       = require('underscore-contrib'),
+    fs    = require('fs'),
+    path  = require('path'),
     async   = require('async');
 
 function User(){
 }
 
+Object.defineProperty(User, 'collection', {
+  get: function(){return global.mongodb.collection('users');}
+});
+
 User.find = function(filter, cb){
   filter.isVisible = true;
   User.collection.find(filter).toArray(cb);
 };
-
-Object.defineProperty(User, 'collection', {
-  get: function(){return global.mongodb.collection('users');}
-});
 
 User.findById = function(id, cb){
   var _id = Mongo.ObjectID(id);
@@ -69,6 +71,43 @@ User.facebookAuthenticate = function(token, secret, facebook, cb){
   });
 };
 
+User.prototype.uploadPhoto = function(files, cb){
+  var baseDir = __dirname + '/../static',
+      relDir  = '/img/' + this._id,
+      absDir  = baseDir + relDir,
+      exist = fs.existsSync(absDir),
+      oldIndex,
+      self = this;
+
+  if(!exist){fs.mkdirSync(absDir);} //check to see if directory already exists
+
+  var newPhotos = files.photos.map(function(photo, index){
+    if(!photo.size){return;}
+
+    //make sure there photos.length is even in existence
+    if(self.photos.length){
+      //set the index equal to the loop index + the self.photos.length
+      oldIndex = index + (self.photos.length - 1);
+    }
+    else {
+      oldIndex = index;
+    }
+
+    var ext      = path.extname(photo.path),
+        name     = oldIndex + ext,
+        absPath  = absDir + '/' + name,
+        relPath  = relDir + '/' + name;
+
+    fs.renameSync(photo.path, absPath);
+    return relPath;
+  });
+
+  newPhotos = _.compact(newPhotos); //shorten the new photos
+  this.photos = this.photos.concat(newPhotos); //add other old photos array with the new!
+
+  User.collection.save(this, cb);
+};
+
 User.prototype.save = function(o, cb){
   var properties = Object.keys(o),
       self       = this;
@@ -118,6 +157,7 @@ User.addLick = function(lickedPerson, loggedInUser, cb){
     User.collection.save(user, cb);
   });
 };
+
 
 module.exports = User;
 

@@ -6,6 +6,7 @@
   var map;
 
   $(document).ready(function(){
+
     var pos = getPosition(),
         positions = getPositions();
 

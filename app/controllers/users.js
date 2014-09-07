@@ -2,6 +2,7 @@
 
 var User    = require('../models/user'),
     moment  = require('moment'),
+    mp      = require('multiparty'),
     Message = require('../models/message');
 
 
@@ -30,14 +31,21 @@ exports.create = function(req, res){
 };
 
 exports.edit = function(req, res){
-  console.log('>>>>>> users/edit.  req= ', req);
   res.render('users/edit');
 };
 
+exports.uploadPhoto = function(req, res){
+  User.findById(req.user._id.toString(), function(err, user){
+    var form = new mp.Form();
+    form.parse(req, function(err, fields, files){
+      user.uploadPhoto(files, function(){
+        res.redirect('/users/edit');
+      });
+    });
+  });
+};
+
 exports.update = function(req, res){
-  console.log('>>>>>> CONTROLLER - USER UPDATE - req.params: ', req.params);
-  console.log('>>>>>> CONTROLLER - USER UPDATE - req.body: ', req.body);
-  console.log('>>>>>> CONTROLLER - USER UPDATE - req.user: ', req.user);
   res.locals.user.save(req.body, function(){
     res.redirect('/farm/users/' + res.locals.user._id);
   });
@@ -91,4 +99,6 @@ exports.browse = function(req, res){
   });
 };
 
-
+exports.congrats = function(req, res){
+  res.render('users/congrats');
+};

@@ -1,0 +1,47 @@
+extends ../shared/template
+block content
+  h2#c Shopping Cart
+  table#gifts.table(style='background-color:white;').table-bordered
+    thead
+      tr
+        th Gift
+        th Image
+        th Price
+        th Quantity
+        th
+    tbody
+      each id in ids
+        tr
+          td= gifts[id].p.name
+          td(style='background-image:url("#{gifts[id].p.photo}")')
+          td $#{gifts[id].p.price.toFixed(2)}
+          td= gifts[id].c
+          td= '$' + (gifts[id].p.price * gifts[id].c).toFixed(2)
+      tr
+        td
+        td
+        td
+        td SubTotal
+        td= '$' + subtotal.toFixed(2)
+      tr
+        td
+        td
+        td
+        td Tax
+        td= '$' + tax.toFixed(2)
+    tfoot
+      tr
+        td
+        td
+        td
+        td Total
+        td= '$' + total.toFixed(2)
+  form(method='post', action='/cart')
+    input(type='hidden', name='_method', value='delete')
+    button.btn.btn-warning(type='submit') Clear Cart
+
+  form(action='/charge', method='post')
+    script.stripe-button(src='https://checkout.stripe.com/checkout.js', data-key=key, data-image='/img/stripe.png', data-name='Furry Farm Gifts', data-amount=Math.round((total * 100)))
+
+
+block scripts

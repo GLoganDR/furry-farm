@@ -11,8 +11,10 @@
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
         if user
-          li: a(href='/users/edit') Edit Profile
           li: a(href='/browse') The Farm
+          li: a(href='/users/edit') Edit Profile
+          li: a(href='/licks') Favorites
+          li: a(href='/cart'): i.fa.fa-shopping-cart.fa-lg &nbsp; Cart
           li
             form.navbar-form(method='post', action='/logout')
               .form-group

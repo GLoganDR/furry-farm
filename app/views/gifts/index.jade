@@ -1,0 +1,20 @@
+extends ../shared/template
+block content
+  h2#g Gifts
+  table#gifts.table(style='background-color:white;').table-bordered
+    thead
+      tr
+        th Gift
+        th Image
+        th Price
+    tbody
+      each gift in gifts
+        tr
+          td
+            form(method='post', action='/cart')
+              input(type='hidden', name='giftId', value=gift._id)
+              button.btn.btn-primary.btn-sm(type='submit')= gift.name
+          td(style='background-image:url("#{gift.photo}")')
+          td $#{gift.price.toFixed(2)}
+
+block scripts
