@@ -19,7 +19,7 @@
 }
 {
   "_id" : {"$oid":"000000000000000000000002"},
-  "email" : "furryfarm@mailismagic.com",
+  "email" : "farm@bobmail.info",
   "height" : "Average",
   "age" : 27,
   "bodyType" : "Athletic",
@@ -30,12 +30,15 @@
   "loc" : {"name":"Manila, Phillippines", "lat":14.583333, "lng":120.966667},
   "sex" : "Male",
   "phone" : "+15005550006",
+  "photos" : ["http://th02.deviantart.net/fs71/PRE/f/2013/332/1/2/how_can_you_find_furries_creepy_by_ian_exe-d6vwkv9.jpg"],
+  "primaryPhoto": "http://thumbs3.ebaystatic.com/d/l225/m/mthAsKtkQnJBUerZfA_ZUfg.jpg",
+  "description": "I love swimming and flopping around on my belly! If we hit it off, we can seal it with a kiss.",
   "wags": ["000000000000000000000001"],
   "licks": ["000000000000000000000003"]
 }
 {
   "_id" : {"$oid":"000000000000000000000003"},
-  "email" : "m8r-ghfp931@mailinator.com",
+  "email" : "farm@mailinator.com",
   "username" : "Mrs. Piggy",
   "species" : "Pig",
   "height" : "Short",
@@ -45,9 +48,90 @@
   "isVisible" : true,
   "primaryPhoto": "http://fc09.deviantart.net/fs70/i/2012/161/8/e/miss_piggy_by_ilurveninjaman-d52ynjr.jpg",
   "photos": ["http://images.halloweencostumes.com/products/9037/1-1/miss-piggy-wig.jpg"],
+  "description": "Will you be my Kermie?",
   "loc" : {"name":"Amsterdam, Netherlands", "lat":52.366667, "lng":4.9},
   "sex" : "Female",
   "phone" : "+15005550006",
+  "wags": ["000000000000000000000001"],
+  "licks": []
+}
+
+{
+  "_id" : {"$oid":"000000000000000000000004"},
+  "email" : "m8r-ghfp931@mailinator.com",
+  "username" : "Kyle Kitty",
+  "species" : "Cat",
+  "height" : "Tall",
+  "bodyType" : "Average",
+  "age" : 31,
+  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
+  "isVisible" : true,
+  "primaryPhoto": "http://boringpittsburgh.com/wp-content/uploads/2010/06/anthrocon-pittsburgh-furries-flickr-dmuth-0.jpg",
+  "photos": ["https://www.google.com/search?q=furries&safe=active&es_sm=91&source=lnms&tbm=isch&sa=X&ei=pAkNVIbrHJDGsQTqr4HYBw&ved=0CAgQ_AUoAQ&biw=1027&bih=704#facrc=_&imgdii=_&imgrc=U9QHUts_c-v9UM%253A%3Bv8TDyS4OMgBhAM%3Bhttp%253A%252F%252Fcdn.okccdn.com%252Fphp%252Fload_okc_image.php%252Fimages%252F1x1%252F500x1000%252F0x0%252F0x0%252F0%252F3463040372289709707%3Bhttp%253A%252F%252Fhelloquizzy.okcupid.com%252Ftests%252Fthe-i-wanna-be-a-furry-test%3B300%3B326", "http://www.furryfandom.info/img/dont-worry-be-furry.png"],
+  "description": "Are you a cat man? If so, this could be prrrrrrfect!",
+  "loc" : {"name":"Nashville, TN", "lat":36.1667, "lng":-86.7833},
+  "sex" : "Female",
+  "phone" : "+15005550006",
+  "wags": ["000000000000000000000005"],
+  "licks": []
+}
+
+{
+  "_id" : {"$oid":"000000000000000000000005"},
+  "email" : "furry@monumentmail.com",
+  "username" : "Sammy Squirrel",
+  "species" : "Squirrel",
+  "height" : "Average",
+  "bodyType" : "Rotund",
+  "age" : 48,
+  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
+  "isVisible" : true,
+  "primaryPhoto": "http://4.bp.blogspot.com/_-ZVynKaZXaQ/TCPzEm0cMpI/AAAAAAAAAHE/dmNW9oTVvf0/s320/furries4.xlarger.jpg",
+  "photos": ["http://th01.deviantart.net/fs71/PRE/f/2013/008/8/9/not_all_furries_are_bad_by_mikkimoo27-d5qtv4x.jpg"],
+  "description":"A Pittsburgh native and furry fanatic. I love dressing up like a stuffed animal. I'm just looking for some furry to love.",
+  "loc" : {"name":"Green Bay, WI", "lat":44.5133, "lng":-88.0158},
+  "sex" : "Male",
+  "phone" : "+15005550006",
   "wags": ["000000000000000000000002"],
   "licks": []
+}
+
+{
+  "_id" : {"$oid":"000000000000000000000006"},
+  "email" : "furry@mailinator.com",
+  "username" : "Pauly the Panda",
+  "species" : "Panda",
+  "height" : "Tall",
+  "bodyType" : "Slim",
+  "age" : 38,
+  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
+  "isVisible" : true,
+  "primaryPhoto": "http://www.post-gazette.com/image/2013/10/17/Anthrocon-furry-convention.jpg",
+  "photos": ["http://www.wtae.com/image/view/-/20831998/highRes/1/-/2p7wtg/-/img-The-Furries-Are-Back-Who-Are-They.jpg"],
+  "description": "A big panda, with an even bigger heart.",
+  "loc" : {"name":"San Francisco, CA", "lat":37.7833, "lng":-122.4167},
+  "sex" : "Male",
+  "phone" : "+15005550006",
+  "wags": ["000000000000000000000007"],
+  "licks": []
+}
+
+{
+  "_id" : {"$oid":"000000000000000000000007"},
+  "email" : "m8r-1dfnb11@mailinator.com",
+  "username" : "Henry the Husky",
+  "species" : "Dog",
+  "height" : "Average",
+  "bodyType" : "Curvy",
+  "age" : 33,
+  "password" : "$2a$10$XR.IQktUUujLBxed70GQn.jWY1wZ9ThM0Tar9wTqzkI4Uk1uP2Or2",
+  "isVisible" : true,
+  "primaryPhoto": "http://mydisguises.com/wp-content/uploads/2009/04/furry-wolf.jpg",
+  "photos": ["http://th00.deviantart.net/fs71/300W/i/2010/096/4/9/Fuzzy_Pony_Quadsuit_by_LilleahWest.jpg"],
+  "description": "Looking for puppy love",
+  "loc" : {"name":"Clearwater, FL", "lat":27.9736, "lng":82.7642},
+  "sex" : "Male",
+  "phone" : "+15005550006",
+  "wags": ["000000000000000000000004"],
+  "licks": ["000000000000000000000007"]
 }
