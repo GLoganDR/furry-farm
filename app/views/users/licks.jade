@@ -1,9 +1,10 @@
 extends ../shared/template
 block content
-  h2 People You've Licked
   .row
+
     .col-xs-3
-    .col-xs-6
+    .col-xs-6.backdrop
+      h2 People You've Licked
       if licks
         table.table
           tr
@@ -21,8 +22,9 @@ block content
       else
         .row You haven't licked anyone...
 
-
-      if proposals
+      h2 Date Requests
+      if proposals.length
+        h2 Date Requests
         table.table
               tr
                 th Display Name
@@ -45,7 +47,7 @@ block content
                           input(type='hidden', name='_method', value='delete')
                           button.btn.btn-danger(type='submit') Decline
       else
-        .row Nobody has sent you a date proposal...
+        h2 Nobody has sent you a date proposal...
     .col-xs-3
 
 

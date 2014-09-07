@@ -1,8 +1,29 @@
 extends ../shared/template
 block content
   h2 Edit Profile
+  .row.backdrop
+      .col-xs-6
+          .header2 Primary Photo
+            #editPrimary(style='background-image: url(#{user.primaryPhoto})')
+      .col-xs-6
+        .header2 Change Primary Photo
+          .photoDiv
+            if user.photos
+              each photo in user.photos
+                .profilePhotos.thumbnail(style='background-image:url(#{photo});')
+            else
+                p You haven't added any photos...
   .row
-    .col-xs-12
+    .col-xs-4
+    .col-xs-4
+      form#uploadPhotos(method='post', action='/users/edit/photo', enctype='multipart/form-data')
+          .form-group
+             label(for='photos') Photos
+             input.form-control#photos(type='file', name='photos', multiple=true)
+          button.btn.btn-success(type='submit') Upload Photos
+    .col-xs-4
+  .row.backdrop
+    .col-xs-6
       form#editProfileForm(role='form', method='post', action='/users/edit')
         .row
           .col-xs-1
@@ -10,9 +31,22 @@ block content
             input(type='hidden', name='_method', value='put')
             input#lat(type='hidden', name='loc[lat]')
             input#lng(type='hidden', name='loc[lng]')
+
+            .form-group
+              label Summary
+                textarea.area(name='description') #{user.description || ""}
+            .form-group
+              label What I'm Looking For
+                textarea.area(name='lookingFor') #{user.lookingFor || ""}
+            .form-group
+              label Favorite Movies/Books
+                textarea.area(name='favMedia') #{user.favMedia || ""}
+
+    .col-xs-6
             .form-group
               label(for='name') Display Name:
               input.form-control#name(type='text', name='name', value=(user.username || 'name?'), autofocus=true)
+
             .form-group
               label(for='species') Species:
                 select(name='species')
@@ -47,8 +81,8 @@ block content
             .form-group
               label Smoker?:
                 select(name='smoker')
-                  option(value='no') No
-                  option(value='yes') Yes
+                  option(value='No') No
+                  option(value='Yes') Yes
             .form-group
               label(for='locName') Location:
               input.form-control#locName(type='text', name='loc[name]', value=(user.loc.name || 'location?'))
@@ -66,42 +100,25 @@ block content
               input.form-control#phone(type='phone', name='phone', value=(user.phone || ''))
           .col-xs-1
           .col-xs-4
-              .row
-                .col-xs-12
-                    .header2 Primary Photo
-                    #editPrimary(style='background-image: url(#{user.primaryPhoto})')
-                    .header2 Other Photos
-                    .photoDiv
-                      if user.photos
-                        each photo in user.photos
-                          .profilePhotos.thumbnail(style='background-image:url(#{photo});')
-                      else
-                        p You haven't added any photos...
+
+
           .col-xs-2
         .row
-          .col-xs-5
-          .col-xs-1
+          .header3 Privacy Settings
+          .col-xs-6
             .radio
               label
                 input(type='radio' name='visible' value='public' checked=user.isVisible)
                 span Public
-          .col-xs-1
+          .col-xs-6
             .radio
               label
                 input(type='radio' name='visible' value='private', checked=!user.isVisible)
                 span Private
-          .col-xs-5
-            button.btn.btn-primary(type='submit') Submit
+      button.btn.btn-primary.big(type='submit' form="editProfileForm") Save Changes
 
-  .row
-    .col-xs-6
-    .col-xs-5
-      form#uploadPhotos(method='post', action='/users/edit/photo', enctype='multipart/form-data')
-          .form-group
-             label(for='photos') Photos
-             input.form-control#photos(type='file', name='photos', multiple=true)
-          button.btn.btn-success(type='submit') Upload Photos
-    .col-xs-1
+
+
 
 block scripts
   script(src='/js/user/editProfile.js')
