@@ -25,14 +25,6 @@ Proposal.find = function(userId, cb){
   Proposal.collection.find({receiverId: _id}).toArray(cb);
 };
 
-//Proposal.accept
-
-//Proposal.decline
-
-//Text and email
-
 
 module.exports = Proposal;
-
-
 

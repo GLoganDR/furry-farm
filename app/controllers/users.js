@@ -113,7 +113,16 @@ exports.propose = function(req, res){
   });
 };
 
-//accept date proposal
+exports.acceptProposal = function(req, res){
+  req.user.acceptProposal(req.params.fromId, req.body.proposalId, function(){
+    res.redirect('/user/licks');
+  });
+};
 
-//decline date proposal
+exports.declineProposal = function(req, res){
+  req.user.declineProposal(req.params.fromId, req.body.proposalId, function(){
+    res.redirect('/user/licks');
+  });
+};
+
 

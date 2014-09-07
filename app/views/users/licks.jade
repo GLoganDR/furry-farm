@@ -34,11 +34,16 @@ block content
                       td= users[index].username
                       td: img(src=users[index].primaryPhoto || '/img/no.jpeg' style='width: 25%')
                       td
-                        form(method='post' action='/user/proposal/#{proposal._id}/accept')
-                        button.btn.btn-danger(type='submit') Accept
+                        form(method='post' action='/proposal/#{proposal.fromId}/accept')
+                          input(type='hidden', name='proposalId' value=proposal._id)
+                          input(type='hidden', name='_method', value='delete')
+
+                          button.btn.btn-danger(type='submit') Accept
                       td
-                        form(method='post' action='/user/propose/#proposal._id}/decline')
-                        button.btn.btn-danger(type='submit') Decline
+                        form(method='post' action='/proposal/#{proposal.fromId}/decline')
+                          input(type='hidden', name='proposalId' value=proposal._id)
+                          input(type='hidden', name='_method', value='delete')
+                          button.btn.btn-danger(type='submit') Decline
       else
         .row Nobody has sent you a date proposal...
     .col-xs-3

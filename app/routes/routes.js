@@ -58,6 +58,9 @@ module.exports = function(app, express){
   app.post('/user/:lickee/lick', users.lick);
   app.get('/user/licks', users.lickIndex);
   app.post('/user/:lickeeId/propose', users.propose);
+  app.delete('/proposal/:fromId/accept', users.acceptProposal);
+  app.delete('/proposal/:fromId/decline', users.declineProposal);
+
 
   console.log('Express: Routes Loaded');
 };
