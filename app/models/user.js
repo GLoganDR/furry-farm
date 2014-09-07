@@ -36,6 +36,9 @@ User.register = function(o, cb){
   User.collection.findOne({email:o.email}, function(err, user){
     if(user){return cb();}
     o.password = bcrypt.hashSync(o.password, 10);
+    o.loc = {};
+    o.licks = [];
+    o.wags = [];
     o.type = 'local';
     User.collection.save(o, cb);
   });
@@ -53,7 +56,7 @@ User.localAuthenticate = function(email, password, cb){
 User.twitterAuthenticate = function(token, secret, twitter, cb){
   User.collection.findOne({twitterId:twitter.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {twitterId:twitter.id, username:twitter.username, displayName:twitter.displayName, type:'twitter'};
+    user = {twitterId:twitter.id, username:twitter.username, displayName:twitter.displayName, type:'twitter', licks:[], wags:[], loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -61,7 +64,7 @@ User.twitterAuthenticate = function(token, secret, twitter, cb){
 User.googleAuthenticate = function(token, secret, google, cb){
   User.collection.findOne({googleId:google.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {googleId:google.id, username:google.displayName, type:'google'};
+    user = {googleId:google.id, username:google.displayName, type:'google', licks:[], wags:[], loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -69,7 +72,7 @@ User.googleAuthenticate = function(token, secret, google, cb){
 User.facebookAuthenticate = function(token, secret, facebook, cb){
   User.collection.findOne({facebookId:facebook.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {facebookId:facebook.id, username:facebook.username, type:'facebook'};
+    user = {facebookId:facebook.id, username:facebook.username, type:'facebook', licks:[], wags:[], loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -82,6 +85,7 @@ User.prototype.uploadPhoto = function(files, cb){
       oldIndex,
       self = this;
 
+  if(!this.photos) { this.photos = []; }
   if(!exist){fs.mkdirSync(absDir);} //check to see if directory already exists
 
   var newPhotos = files.photos.map(function(photo, index){
@@ -214,7 +218,6 @@ User.propose = function(to, from, cb){
   Proposal.collection.save(p, cb);
 };
 
-module.exports = User;
 
 //NEEDS TESTING
 User.prototype.acceptProposal = function(fromId, proposalId, cb){
@@ -237,6 +240,8 @@ User.prototype.declineProposal = function(fromId, proposalId, cb){
     });
   });
 };
+
+module.exports = User;
 
 //Private Functions
 function userIterator(userId, cb){
