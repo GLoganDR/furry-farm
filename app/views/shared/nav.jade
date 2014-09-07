@@ -6,11 +6,15 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/') Furry Farm
+      p.navbar-text.navbar-left
+        if user
+          a.navbar-link(href='#')= user.email || user.username
 
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
         if user
+          li: a(href='/messages') Messages
+          li.unread= user.unreadMessages > 0 ? user.unreadMessages : null
           li: a(href='/browse') The Farm
           li: a(href='/users/edit') Edit Profile
           li: a(href='/cart'): i.fa.fa-shopping-cart.fa-lg &nbsp; Cart
@@ -22,10 +26,7 @@
             form.navbar-form(method='post', action='/logout')
               .form-group
                 input(type='hidden', name='_method', value='delete')
-                button.btn.btn-danger= user.email
-          li: a(href='/messages')
-            span Messages &nbsp;
-            span.badge= user.unread
+                button.btn.btn-danger Logout
         else
           li: a(href='/faqs') FAQS
           li: a(href='/about') About
