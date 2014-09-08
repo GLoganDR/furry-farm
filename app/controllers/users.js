@@ -30,7 +30,7 @@ exports.create = function(req, res){
   });
 };
 exports.contact = function(req, res){
-  res.render('users/contact');
+  res.render('users/contact', {receiver: req.params.toId});
 };
 
 exports.send = function(req, res){
@@ -59,8 +59,8 @@ exports.update = function(req, res){
 };
 
 exports.messages = function(req, res){
-  req.user.messages(function(err, messages){
-    res.render('users/messages', {messages:messages, moment:moment});
+  req.user.messages(function(err, messages, senders){
+    res.render('users/messages', {messages:messages, moment:moment, senders: senders});
   });
 };
 

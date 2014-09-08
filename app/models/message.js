@@ -3,8 +3,8 @@
 var async = require('async'),
     Mongo  = require('mongodb');
 
-function Message(senderId, receiverId, message){
-  this.senderId   = senderId;
+function Message(fromId, receiverId, message){
+  this.fromId     = fromId;
   this.receiverId = receiverId;
   this.body       = message;
   this.date       = new Date();
@@ -18,7 +18,9 @@ Object.defineProperty(Message, 'collection', {
 Message.messages = function(receiverId, cb){
   receiverId = Mongo.ObjectID(receiverId);
   Message.collection.find({receiverId:receiverId}).sort({date:-1}).toArray(function(err, messages){
-    async.map(messages, iterator, cb);
+    async.map(messages, iterator, function(err, senders){
+      cb(err, senders);
+    });
   });
 };
 
@@ -35,14 +37,13 @@ Message.unread = function(receiverId, cb){
 };
 
 Message.send = function(senderId, receiverId, message, cb){
-  console.log(receiverId);
   var m = new Message(senderId, receiverId, message);
   Message.collection.save(m, cb);
 };
 module.exports = Message;
 
 function iterator(msg, cb){
-  require('./user').findById(msg.senderId, function(err, sender){
+  require('./user').findById(msg.fromId, function(err, sender){
     msg.sender = sender;
     cb(null, msg);
   });
