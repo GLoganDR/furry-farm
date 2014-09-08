@@ -26,7 +26,7 @@ describe('User', function(){
   describe('.find', function(){
     it('should find users who are public', function(done){
       User.find({isVisible:true}, function(err, users){
-        expect(users).to.have.length(2);
+        expect(users).to.have.length(6);
         done();
       });
     });
