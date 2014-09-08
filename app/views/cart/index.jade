@@ -40,8 +40,8 @@ block content
   .center(style='text-align: center')
     form(method='post', action='/cart')
       input(type='hidden', name='_method', value='delete')
-      button.btn.btn-warning.outline(type='submit') Clear Cart
-    hr  
+      button.btn.btn-warning.outline(type='submit'): i.fa.fa-eraser.fa-lg &nbsp; Clear Cart
+    hr
     form(action='/charge', method='post')
       script.stripe-button(src='https://checkout.stripe.com/checkout.js', data-key=key, data-image='/img/stripe.png', data-name='Furry Farm Gifts', data-amount=Math.round((total * 100)))
 

@@ -24,16 +24,16 @@ block content
           ul#controls
             li
               a(href='/messages/#{publicUser._id}/send')
-               button.btn.btn-primary.btn-lg(type='button') Send message
+               button.btn.btn-primary.btn-lg(type='button'): i.fa.fa-envelope.fa-sm &nbsp; Send message
             li
               form(method='post' action='/user/#{publicUser._id}/wag')
-                button.btn.btn-primary.btn-lg(type='submit') Wag
+                button.btn.btn-primary.btn-lg(type='submit'): i.fa.fa-thumbs-up.fa-sm &nbsp; Wag
             li
               form(method='post' action='/user/#{publicUser._id}/lick')
-                button.btn.btn-primary.btn-lg(type='submit') Lick
+                button.btn.btn-primary.btn-lg(type='submit'): i.fa.fa-heart.fa-sm &nbsp; Lick
             li
               a(href='/user/#{publicUser._id}/gifts')
-                button.btn.btn-primary.btn-lg(type='button') Gift
+                button.btn.btn-primary.btn-lg(type='button'): i.fa.fa-gift.fa-sm &nbsp; Gift
       .row
         .col-xs-4.backdrop
           ul.info
@@ -72,6 +72,6 @@ block content
           .header2 Favorite Books/Movies:
           #profileDescription
             p= publicUser.favMedia || 'This has not mentioned what they like...'
-  
+
 block scripts
   script(src='/js/user/photo.js')

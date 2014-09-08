@@ -18,7 +18,7 @@ block content
                   td: img(src=lickee.primaryPhoto || '/img/no.jpeg' style='width: 25%')
                   td
                     form(method='post' action='/user/#{lickee._id}/propose')
-                      button.btn.btn-danger(type='submit') Propose a date!
+                      button.btn.btn-danger(type='submit'): i.fa.fa-cutlery.fa-lg &nbsp; Propose a date!
       else
         .row You haven't licked anyone...
 
@@ -39,12 +39,12 @@ block content
                           input(type='hidden', name='proposalId' value=proposal._id)
                           input(type='hidden', name='_method', value='delete')
 
-                          button.btn.btn-danger(type='submit') Accept
+                          button.btn.btn-danger(type='submit'): i.fa.fa-check.fa-lg &nbsp; Accept
                       td
                         form(method='post' action='/proposal/#{proposal.fromId}/decline')
                           input(type='hidden', name='proposalId' value=proposal._id)
                           input(type='hidden', name='_method', value='delete')
-                          button.btn.btn-danger(type='submit') Decline
+                          button.btn.btn-danger(type='submit'): i.fa.fa-thumbs-down.fa-lg &nbsp; Decline
       else
         h2 Nobody has sent you a date proposal...
     .col-xs-3
