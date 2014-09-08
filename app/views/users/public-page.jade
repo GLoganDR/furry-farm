@@ -37,21 +37,21 @@ block content
       .row
         .col-xs-4.backdrop
           ul.info
-            li Location: #{publicUser.loc.name}
+            li Location: #{publicUser.loc.name || ''}
             hr
-            li Sex: #{publicUser.sex}
+            li Sex: #{publicUser.sex || ''}
             hr
-            li Age: #{publicUser.age}
+            li Age: #{publicUser.age || ''}
             hr
-            li Species: #{publicUser.species}
+            li Species: #{publicUser.species || ''}
             hr
-            li Wags: #{publicUser.wags.length}
+            li Wags: #{publicUser.wags.length || ''}
             hr
-            li Licks: #{publicUser.licks.length}
+            li Licks: #{publicUser.licks.length || ''}
             hr
-            li Kids?: Yes 
+            li Kids?: #{publicUser.kids || ''}
             hr
-            li Smoker?: Yes
+            li Smoker?: #{publicUser.smoker || ''}
             hr
             li Tagline: #{publicUser.tagline || ''}
             hr
@@ -63,7 +63,7 @@ block content
           br
           .header2 I'm Looking For:
           #profileDescription
-            p= publicUser.favMedia || 'This has not mentioned what they are looking for...'
+            p= publicUser.lookingFor || 'This has not mentioned what they are looking for...'
           br
           .header2 Favorite Books/Movies:
           #profileDescription
