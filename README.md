@@ -4,109 +4,96 @@
 [![Coverage Status](https://coveralls.io/repos/GLoganDR/furry-farm/badge.png)](https://coveralls.io/r/GLoganDR/furry-farm)
 
 ### Screenshots
-![Image1](https://raw.githubusercontent.com/nss-cohort-2014-06-07/express-template/master/docs/screenshots/sn1.png)
-![Image2](https://raw.githubusercontent.com/nss-cohort-2014-06-07/express-template/master/docs/screenshots/sn2.png)
+![Image1](https://raw.githubusercontent.com/kadowki/furry-farm/master/docs/screenshots/sn1.png)
+![Image2](https://raw.githubusercontent.com/kadowki/furry-farm/master/docs/screenshots/sn2.png)
 
 ### Description
 This is our super original and awesome dating website for Furries! If you like dressing up as an animal and going out on a date, you'll love Furry Farm!
 
 ### Models
-```
-User
-```
-.find
-.findById
-.register
-.localAuthenticate
-.twitterAuthenticate
-.googleAuthenticate
-.facebookAuthenticate
-.displayProfile
-.addWag
-.addLick
-.displayLicks 
-.displayProposals
-.propose 
-prototype.uploadPhoto
-prototype.save
-prototype.messages
-prototype.send
-prototype.acceptProposal
-prototype.declineProposal
-prototype.changePhoto
-fn-userIterator
-fn-sendText
-fn-sendEmail
+#User
+- .find
+- .findById
+- .register
+- .localAuthenticate
+- .twitterAuthenticate
+- .googleAuthenticate
+- .facebookAuthenticate
+- .displayProfile
+- .addWag
+- .addLick
+- .displayLicks 
+- .displayProposals
+- .propose 
+- prototype.uploadPhoto
+- prototype.save
+- prototype.messages
+- prototype.send
+- prototype.acceptProposal
+- prototype.declineProposal
+- prototype.changePhoto
+- fn-userIterator
+- fn-sendText
+- fn-sendEmail
 
-```
-Message
-```
-prop-fromtId
-prop-receiverId
-prop-body
-prop-date
-prop-isRead
-.messages
-.read
-.unread
-.send
-fn-iterator
 
-```
-Proposal
-```
-.findById
-.find
+#Message
+- prop-fromtId
+- prop-receiverId
+- prop-body
+- prop-date
+- prop-isRead
+- .messages
+- .read
+- .unread
+- .send
+- fn-iterator
 
-```
-Gift
-```
-.findById
-.all
+
+#Proposal
+- .findById
+- .find
+
+
+#Gift
+- .findById
+- .all
 
 ### Database: MongoDB: furry-farm
-```
-User
-```
-username
-password
-wags
-licks
-photos
-primaryPhotos
-height
-bodyType
-sex
-species
-description
-lookingFor
-favMedia
 
-```
-Message
-```
-receiverId
-fromId
-_id
-date
-body
-isRead
+#User
+- username
+- password
+- wags
+- licks
+- photos
+- primaryPhotos
+- height
+- bodyType
+- sex
+- species
+- description
+- lookingFor
+- favMedia
 
-```
-Proposal
-```
-receiverId
-fromId
-_id
+#Message
+- receiverId
+- fromId
+- _id
+- date
+- body
+- isRead
 
+#Proposal
+- receiverId
+- fromId
+- _id
 
-```
-Gift
-```
-_id
-name
-photo
-price
+#Gift
+- _id
+- name
+- photo
+- price
 
 ### Features
 - Login/Logout
