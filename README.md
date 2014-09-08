@@ -4,8 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/GLoganDR/furry-farm/badge.png)](https://coveralls.io/r/GLoganDR/furry-farm)
 
 ### Screenshots
-![Image1](https://raw.githubusercontent.com/kadowki/furry-farm/master/docs/screenshots/sn1.png)
-![Image2](https://raw.githubusercontent.com/kadowki/furry-farm/master/docs/screenshots/sn2.png)
+![Image1](https://raw.githubusercontent.com/GLoganDR/furry-farm/master/docs/screenshots/sn1.png)
+![Image2](https://raw.githubusercontent.com/GLoganDR/furry-farm/master/docs/screenshots/sn2.png)
 
 ### Description
 This is our super original and awesome dating website for Furries! If you like dressing up as an animal and going out on a date, you'll love Furry Farm!
