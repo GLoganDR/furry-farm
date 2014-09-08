@@ -8,7 +8,7 @@ block content
             th From
             th Date
               tr
-                td=(moment(message.sent).format('DD MMM, YYYY')) 
+                td=(moment(message.sent).format('DD MMM, YYYY'))
                 td From: &nbsp
                   a(href='/messages/#{message.sender._id}/send') #{message.sender.username}
               tr

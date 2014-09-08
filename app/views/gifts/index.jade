@@ -13,7 +13,7 @@ block content
           td
             form(method='post', action='/cart')
               input(type='hidden', name='giftId', value=gift._id)
-              button.btn.btn-primary.btn-sm(type='submit')= gift.name
+              button.btn.btn-primary.btn-sm(type='submit'): i.fa.fa-gift.fa-lg &nbsp; #{gift.name}
           td(style='background-image:url("#{gift.photo}")')
           td $#{gift.price.toFixed(2)}
 
