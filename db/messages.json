@@ -3,7 +3,6 @@
     "sent" : {"$date":1409275755915},
     "receiverId" : {"$oid":"000000000000000000000003"},
     "fromId" : {"$oid":"000000000000000000000001"},
-    "from" : "a@aol.com",
     "body" : "Test 1",
     "isRead" : false
 }
@@ -12,7 +11,6 @@
     "sent" : {"$date":1409275755916},
     "receiverId" : {"$oid":"000000000000000000000001"},
     "fromId" : {"$oid":"000000000000000000000002"},
-    "from" : "b@aol.com",
     "body" : "Test 2",
     "isRead" : false
 }
@@ -21,7 +19,6 @@
     "sent" : {"$date":1409275755917},
     "receiverId" : {"$oid":"000000000000000000000002"},
     "fromId" : {"$oid":"000000000000000000000003"},
-    "from" : "c@aol.com",
     "body" : "Test 3",
     "isRead" : false
 }
@@ -30,7 +27,6 @@
     "sent" : {"$date":1409275755918},
     "receiverId" : {"$oid":"000000000000000000000003"},
     "fromId" : {"$oid":"000000000000000000000002"},
-    "from" : "b@aol.com",
     "body" : "Test 4",
     "isRead" : false
 }
@@ -39,7 +35,6 @@
     "sent" : {"$date":1409275755919},
     "receiverId" : {"$oid":"000000000000000000000001"},
     "fromId" : {"$oid":"000000000000000000000003"},
-    "from" : "c@aol.com",
     "body" : "Test 5",
     "isRead" : false
 }

@@ -37,6 +37,8 @@ User.register = function(o, cb){
     if(user){return cb();}
     o.password = bcrypt.hashSync(o.password, 10);
     o.loc = {};
+    o.licks = [];
+    o.wags = [];
     o.type = 'local';
     User.collection.save(o, cb);
   });
@@ -54,7 +56,7 @@ User.localAuthenticate = function(email, password, cb){
 User.twitterAuthenticate = function(token, secret, twitter, cb){
   User.collection.findOne({twitterId:twitter.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {twitterId:twitter.id, username:twitter.username, displayName:twitter.displayName, type:'twitter', loc: {}};
+    user = {twitterId:twitter.id, username:twitter.username, displayName:twitter.displayName, type:'twitter', licks:[], wags:[], loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -62,7 +64,7 @@ User.twitterAuthenticate = function(token, secret, twitter, cb){
 User.googleAuthenticate = function(token, secret, google, cb){
   User.collection.findOne({googleId:google.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {googleId:google.id, username:google.displayName, type:'google', loc: {}};
+    user = {googleId:google.id, username:google.displayName, type:'google', licks:[], wags:[], loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -70,7 +72,7 @@ User.googleAuthenticate = function(token, secret, google, cb){
 User.facebookAuthenticate = function(token, secret, facebook, cb){
   User.collection.findOne({facebookId:facebook.id}, function(err, user){
     if(user){return cb(null, user);}
-    user = {facebookId:facebook.id, username:facebook.username, type:'facebook', loc: {}};
+    user = {facebookId:facebook.id, username:facebook.username, type:'facebook', licks:[], wags:[], loc: {}};
     User.collection.save(user, cb);
   });
 };
@@ -222,7 +224,6 @@ User.propose = function(to, from, cb){
   Proposal.collection.save(p, cb);
 };
 
-module.exports = User;
 
 //NEEDS TESTING
 User.prototype.acceptProposal = function(fromId, proposalId, cb){
@@ -230,6 +231,7 @@ User.prototype.acceptProposal = function(fromId, proposalId, cb){
   User.findById(fromId, function(err, user){
     var body = (user.username || user.email)  + ', ' + (self.username || 'a Furry Farm user') + ' has accepted your date proposal. Way to go!';
     txtMsg(user.phone, body, function(err, response){
+      console.log('>>>>>>>> User.#acceptProposal.  response: ', response);
       Proposal.collection.remove({_id: Mongo.ObjectID(proposalId)}, cb);
     });
   });
@@ -245,6 +247,8 @@ User.prototype.declineProposal = function(fromId, proposalId, cb){
     });
   });
 };
+
+module.exports = User;
 
 //Private Functions
 function userIterator(userId, cb){

@@ -15,7 +15,7 @@ exports.bounce = function(req, res, next){
   if(res.locals.user){
     next();
   }else{
-    req.flash('error', 'HALT! You must log in before going any further!');
+    req.flash('error', 'You gotta log in to do that!');
     res.redirect('/login');
   }
 };

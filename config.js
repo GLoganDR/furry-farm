@@ -21,7 +21,7 @@ config.facebook = {
 };
 
 config.stripe = {
-  publishKey : 'pk_test_hITBCSvRquKbXqH4FnLGUclK',
+  publishKey : process.env.STRIPE_PUBLISH,
   secretKey  : process.env.STRIPE_SECRET
 };
 
