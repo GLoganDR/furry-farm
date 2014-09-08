@@ -5,15 +5,21 @@
   'use strict';
 
   $(document).ready(function(){
-    console.log('>>>>>>> editProfile.js');
-    console.log('#editProfileForm', $('#editProfileForm'));
     $('#editProfileForm').submit(editLocation);
+
+    $('.profilePhotos').hover(
+      function(){ //Show on hover
+        $(this).closest('.photoMinor').find('button').show();
+      },
+      function(){
+      }
+    );
+
   });
+
 
   function editLocation(e){
     var lat = $('#lat').val();
-
-    console.log('>>>>>>> editLocation.js');
     if(!lat){
       var name = $('#locName').val();
       geocode(name);
@@ -23,7 +29,6 @@
 
   function geocode(address){
     var geocoder = new google.maps.Geocoder();
-    console.log('>>>>>>> geocode.js');
     geocoder.geocode({address:address}, function(results, status){
       var name = results[0].formatted_address,
           lat  = results[0].geometry.location.lat(),

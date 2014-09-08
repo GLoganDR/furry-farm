@@ -77,6 +77,7 @@ module.exports = function(app, express){
   app.post('/user/:lickeeId/propose', users.propose);
   app.delete('/proposal/:fromId/accept', users.acceptProposal);
   app.delete('/proposal/:fromId/decline', users.declineProposal);
+  app.post('/user/:index/change', users.changePhoto);
 
 
   console.log('Express: Routes Loaded');

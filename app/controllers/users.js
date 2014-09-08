@@ -140,4 +140,10 @@ exports.declineProposal = function(req, res){
   });
 };
 
+exports.changePhoto = function(req, res){
+  req.user.changePhoto(req.params.index, function(){
+    res.redirect('/users/edit');
+  });
+};
+
 

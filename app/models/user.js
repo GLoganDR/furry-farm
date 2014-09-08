@@ -248,6 +248,17 @@ User.prototype.declineProposal = function(fromId, proposalId, cb){
   });
 };
 
+User.prototype.changePhoto = function(index, cb){
+  var oldPhoto = this.primaryPhoto || '',
+  newPhoto = this.photos[index];
+
+  //Change photos around
+  this.primaryPhoto = newPhoto;
+  this.photos[index] = oldPhoto;
+
+  User.prototype.save(this, cb);
+};
+
 module.exports = User;
 
 //Private Functions
