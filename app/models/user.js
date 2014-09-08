@@ -85,7 +85,8 @@ User.prototype.uploadPhoto = function(files, cb){
       oldIndex,
       self = this;
 
-  if(!this.photos) { this.photos = []; }
+  if(!this.photos){ this.photos = []; }
+
   if(!exist){fs.mkdirSync(absDir);} //check to see if directory already exists
 
   var newPhotos = files.photos.map(function(photo, index){
@@ -140,10 +141,16 @@ User.displayProfile = function(userId, cb){
   var _id = Mongo.ObjectID(userId);
   User.collection.findOne({_id: _id, isVisible: true}, function(err, user){
     if(!user){ return cb(err, user);}
-    async.map(user.wags, userIterator, function(err, waggers){
-      user.waggers = waggers;
+    if(user.wags){
+      async.map(user.wags, userIterator, function(err, waggers){
+        user.waggers = waggers;
+        cb(err, user);
+      });
+    }
+    else {
       cb(err, user);
-    });
+    }
+
   });
 };
 
@@ -209,7 +216,6 @@ User.displayProposals = function(userId, cb){
 
 };
 
-//NEEDS TESTING
 User.propose = function(to, from, cb){
   var p = new Proposal();
   p.receiverId = to;
@@ -225,6 +231,7 @@ User.prototype.acceptProposal = function(fromId, proposalId, cb){
   User.findById(fromId, function(err, user){
     var body = (user.username || user.email)  + ', ' + (self.username || 'a Furry Farm user') + ' has accepted your date proposal. Way to go!';
     txtMsg(user.phone, body, function(err, response){
+      console.log('>>>>>>>> User.#acceptProposal.  response: ', response);
       Proposal.collection.remove({_id: Mongo.ObjectID(proposalId)}, cb);
     });
   });

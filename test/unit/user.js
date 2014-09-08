@@ -26,7 +26,7 @@ describe('User', function(){
   describe('.find', function(){
     it('should find users who are public', function(done){
       User.find({isVisible:true}, function(err, users){
-        expect(users).to.have.length(2);
+        expect(users).to.have.length(6);
         done();
       });
     });
@@ -134,10 +134,33 @@ describe('User', function(){
 
       User.propose('000000000000000000000003', u._id, function(err, proposal){
         expect(proposal._id).to.be.instanceof(Mongo.ObjectID);
+        expect(proposal.receiverId).to.equal('000000000000000000000003');
+        expect(proposal.fromId).to.equal('000000000000000000000001');
         done();
       });
     });
   });
 
+/*
+  // test still under construction
+  describe('#acceptProposal', function(){
+    it('should accept a proposal', function(done){
+      var sender    = new User(),
+          receiver  = new User();
+      // sender._id = '000000000000000000000001';
+      //  receiver._id = '000000000000000000000001';
+      User.propose(receiver._id, sender._id, function(err, proposal){
+        console.log('>>>>>>> #acceptProposal-test. proposal: ', proposal);
+        receiver.acceptProposal(sender._id, proposal._id, function(err, response){
+          // expect(response).to.be.instanceof(text);
+          // expect(proposal._id).to.be.instanceof(Mongo.ObjectID);
+          // expect(proposal.receiverId).to.equal('000000000000000000000003');
+          // expect(proposal.fromId).to.equal('000000000000000000000001');
+          done();
+        });
+      });
+    });
+  });
+*/
 
 });//final closing
