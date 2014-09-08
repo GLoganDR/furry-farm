@@ -26,13 +26,13 @@ describe('Message', function(){
   describe('constructor', function(){
     it('should create a new Message object', function(){
       var senderId   = Mongo.ObjectID(),
-      receiverId = Mongo.ObjectID(),
+      fromId = Mongo.ObjectID(),
       body       = 'This is the text of the message',
-      m          = new Message(senderId, receiverId, body);
+      m          = new Message(senderId, fromId, body);
       expect(m).to.be.instanceof(Message);
       expect(m.date).to.be.instanceof(Date);
-      expect(m.senderId).to.be.instanceof(Mongo.ObjectID);
       expect(m.receiverId).to.be.instanceof(Mongo.ObjectID);
+      expect(m.fromId).to.be.instanceof(Mongo.ObjectID);
     });
   });
 
