@@ -9,8 +9,11 @@ block content
         .header2 Change Primary Photo
           .photoDiv
             if user.photos
-              each photo in user.photos
-                .profilePhotos.thumbnail(style='background-image:url(#{photo});')
+              each photo, index in user.photos
+                .photoMinor
+                  form(method='post' action='/user/#{index}/change')
+                    button(style='display:none').btn.btn-sm Change..
+                  .profilePhotos.thumbnail(style='background-image:url(#{photo});')
             else
                 p You haven't added any photos...
   .row
