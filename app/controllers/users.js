@@ -33,10 +33,6 @@ exports.contact = function(req, res){
   res.render('users/contact', {receiver: req.params.toId});
 };
 
-exports.send = function(req, res){
-  res.redirect('/messages');
-};
-
 exports.edit = function(req, res){
   res.render('users/edit');
 };
