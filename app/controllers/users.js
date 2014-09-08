@@ -49,7 +49,6 @@ exports.uploadPhoto = function(req, res){
 };
 
 exports.update = function(req, res){
-  console.log(req.body);
   res.locals.user.save(req.body, function(){
     res.redirect('/farm/users/' + res.locals.user._id);
   });
