@@ -1,7 +1,7 @@
 extends ../shared/template
 block content
   h2#c Shopping Cart
-  table#gifts.table(style='background-color:white;').table-bordered
+  table#gifts.table(style='background-color:white;').outline
     thead
       tr
         th Gift
@@ -36,12 +36,14 @@ block content
         td
         td Total
         td= '$' + total.toFixed(2)
-  form(method='post', action='/cart')
-    input(type='hidden', name='_method', value='delete')
-    button.btn.btn-warning(type='submit') Clear Cart
 
-  form(action='/charge', method='post')
-    script.stripe-button(src='https://checkout.stripe.com/checkout.js', data-key=key, data-image='/img/stripe.png', data-name='Furry Farm Gifts', data-amount=Math.round((total * 100)))
+  .center(style='text-align: center')
+    form(method='post', action='/cart')
+      input(type='hidden', name='_method', value='delete')
+      button.btn.btn-warning.outline(type='submit') Clear Cart
+    hr  
+    form(action='/charge', method='post')
+      script.stripe-button(src='https://checkout.stripe.com/checkout.js', data-key=key, data-image='/img/stripe.png', data-name='Furry Farm Gifts', data-amount=Math.round((total * 100)))
 
 
 block scripts

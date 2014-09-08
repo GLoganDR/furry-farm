@@ -3,8 +3,7 @@ block content
   .row
     .col-xs-12
       h3 #{user.email}'s messages
-      #unread #{ (unread) ? 'You have ' + unread + ' unread message(s)' : 'You have no unread messages.'}
-  .row
+  .row.backdrop.outline
     .col-xs-2
     .col-xs-8
       table.table.table-condensed.table-hover
