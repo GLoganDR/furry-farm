@@ -197,7 +197,6 @@ User.displayLicks = function(userId, cb){
       cb(licks);
     });
   });
-
 };
 
 
@@ -225,19 +224,16 @@ User.propose = function(to, from, cb){
 };
 
 
-//NEEDS TESTING
 User.prototype.acceptProposal = function(fromId, proposalId, cb){
   var self = this;
   User.findById(fromId, function(err, user){
     var body = (user.username || user.email)  + ', ' + (self.username || 'a Furry Farm user') + ' has accepted your date proposal. Way to go!';
     txtMsg(user.phone, body, function(err, response){
-      console.log('>>>>>>>> User.#acceptProposal.  response: ', response);
       Proposal.collection.remove({_id: Mongo.ObjectID(proposalId)}, cb);
     });
   });
 };
 
-//NEEDS TESTING
 User.prototype.declineProposal = function(fromId, proposalId, cb){
   var self = this;
   User.findById(fromId, function(err, user){
