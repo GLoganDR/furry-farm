@@ -8,31 +8,31 @@
         span.icon-bar
       p.navbar-text.navbar-left
         if user
-          a.navbar-link(href='#')= user.email || user.username
+          a(href= '/farm/users/#{user._id}'): i.fa.fa-user.fa-lg &nbsp; #{user.username || user.email}
 
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
         if user
-          li: a(href='/messages') Messages
-          li.unread= user.unreadMessages > 0 ? user.unreadMessages : null
-          li: a(href='/browse') The Farm
-          li: a(href='/users/edit') Edit Profile
+          li: a(href='/browse'): i.fa.fa-paw.fa-lg &nbsp; The Farm
+          li: a(href='/messages'): i.fa.fa-envelope.fa-lg &nbsp; Messages
+          li: a(href='/user/licks'): i.fa.fa-heart.fa-lg &nbsp; Your Licks
+          li: a(href='/users/edit'): i.fa.fa-cogs.fa-lg &nbsp; Edit Profile
           li: a(href='/cart'): i.fa.fa-shopping-cart.fa-lg &nbsp; Cart
-          li: a(href='/user/licks') Your Licks
-          li: a(href='/faqs') FAQS
-          li: a(href='/about') About
-          li: a(href='/contact') Contact Us
+          li.unread= user.unreadMessages > 0 ? user.unreadMessages : null
+          li: a(href='/faqs'): i.fa.fa-question.fa-lg &nbsp; FAQS
+          li: a(href='/about'): i.fa.fa-book.fa-lg &nbsp; About
+          li: a(href='/contact'): i.fa.fa-phone.fa-lg &nbsp; Contact Us
           li
             form.navbar-form(method='post', action='/logout')
               .form-group
                 input(type='hidden', name='_method', value='delete')
-                button.btn.btn-success Logout
+                button.btn.btn-success: i.fa.fa-rocket.fa-lg &nbsp; Logout
         else
-          li: a(href='/faqs') FAQS
-          li: a(href='/about') About
-          li: a(href='/contact') Contact Us
-          li: a(href='/register') Register
-          li: a(href='/login') Login
+          li: a(href='/faqs'): i.fa.fa-question.fa-lg &nbsp; FAQS
+          li: a(href='/about'): i.fa.fa-book.fa-lg &nbsp; About
+          li: a(href='/contact'): i.fa.fa-phone.fa-lg &nbsp; Contact Us
+          li: a(href='/register'): i.fa.fa-plug.fa-lg &nbsp; Register
+          li: a(href='/login'): i.fa.fa-bolt.fa-lg &nbsp; Login
           li: a(href='/auth/google'): i.fa.fa-google.fa-lg
           li: a(href='/auth/twitter'): i.fa.fa-twitter.fa-lg
           li: a(href='/auth/facebook'): i.fa.fa-facebook.fa-lg

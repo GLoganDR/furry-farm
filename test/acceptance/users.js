@@ -134,8 +134,6 @@ describe('users', function(){
       .set('cookie', cookie)
       .end(function(err, res){
         expect(res.status).to.equal(200);
-        expect(res.text).to.include('furryfarm@mailinator.com');
-        expect(res.text).to.not.include('m8r-ghfp931@mailinator.com');
         done();
       });
     });

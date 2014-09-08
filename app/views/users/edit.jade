@@ -23,7 +23,7 @@ block content
           .form-group
              label(for='photos') Photos
              input.form-control#photos(type='file', name='photos', multiple=true)
-          button.btn.btn-success(type='submit') Upload Photos
+          button.btn.btn-success(type='submit'): i.fa.fa-camera.fa-lg &nbsp; Upload Photos
     .col-xs-4
   .row.backdrop
 
@@ -133,7 +133,7 @@ block content
               label
                 input(type='radio' name='visible' value='private', checked=!user.isVisible)
                 span Private
-      button.btn.btn-primary.big(type='submit' form="editProfileForm") Save Changes
+      button.btn.btn-primary.big(type='submit' form="editProfileForm"): i.fa.fa-pencil.fa-lg &nbsp; Save Changes
 
 
 block scripts
