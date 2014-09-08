@@ -26,27 +26,21 @@ block content
   .row
     .col-xs-4.backdrop
       ul.info
-        li Location: #{user.loc.name}
+        li Location: #{user.loc.name || ''}
         hr
-        li Sex: #{user.sex}
+        li Sex: #{user.sex || ''}
         hr
-        li Age: #{user.age}
+        li Age: #{user.age || ''}
         hr
-        li Species: #{user.species}
+        li Species: #{user.species || ''}
         hr
-        if user.wags
-          li= 'Wags:' +  user.wags.length
-        else
-          li Wags: 0
+        li Wags: #{user.wags.length || ''}
         hr
-        if user.licks
-          li= 'Licks:' +  user.licks.length
-        else
-          li Licks: 0
+        li Licks: #{user.licks.length || ''}
         hr
-        li Kids?: No
+        li Kids?: #{user.kids || ''}
         hr
-        li Smoker?: No
+        li Smoker?: #{user.smoker || ''}
         hr
         li Tagline: #{user.tagline || ''}
         hr
@@ -61,7 +55,6 @@ block content
               .col-xs-12: a(href='/farm/users/#{wagger._id}') #{wagger.username}</a> wagged at you!
         else 
           p Nobody has wagged at you...
-  
 
 
     .col-xs-7.backdrop
@@ -71,7 +64,7 @@ block content
       br
       .header2 I'm Looking For:
       #profileDescription
-        p= user.favMedia || 'You have not mentioned what you are looking for...'
+        p= user.lookingFor || 'You have not mentioned what you are looking for...'
       br
       .header2 Favorite Books/Movies:
       #profileDescription

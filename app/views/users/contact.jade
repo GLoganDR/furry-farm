@@ -3,16 +3,16 @@ block content
   .container
     .row
       .col-xs-4
-      .col-xs-6.h3 Make Contact with .....
+      .col-xs-6.h3 Send a Message
       .col-xs-2
-    .row
+    .row.backdrop.outline.bigger
         .col-xs-3
         .col-xs-6
-          .panel.panel-default
-            .panel-body
-              form(role='form', method='post', action='/messages/#{receiver}/send')
+          table.table
+            tr
+              form.contact(role='form', method='post', action='/messages/#{receiver}/send')
                 .row
-                  .col-xs-6
+                  .col-xs-3
                     .radio
                       label
                         input(type='radio' name='mtype' value='text' checked=true)
@@ -25,12 +25,16 @@ block content
                       label
                         input(type='radio' name='mtype' value='internal')
                         span Internal/Proposal
-                  .col-xs-6
+                  .col-xs-4
+
+                .row
+                  .col-xs-4
                     .form-group
                       label(for='message') Message
-                      textarea.form-control#message(name='body', autofocus=true)
+                      textarea.message#message(name='body', autofocus=true)
                     .form-group
-                      button.btn.btn-info.btn-sm(type='submit') Send Message
+                      button.btn.btn-info.btn-lg(type='submit') Send Message
+                  .col-xs-4
         .col-xs-3
 
 
