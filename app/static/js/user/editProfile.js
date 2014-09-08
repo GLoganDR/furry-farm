@@ -10,7 +10,7 @@
     $('.profilePhotos').hover(
       function(){ //Show on hover
         $(this).closest('.photoMinor').find('button').show();
-      }, 
+      },
       function(){
       }
     );

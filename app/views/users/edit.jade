@@ -12,7 +12,7 @@ block content
               each photo, index in user.photos
                 .photoMinor
                   form(method='post' action='/user/#{index}/change')
-                    button(style='display:none').btn.btn-sm Change..
+                    button(style='display:none').btn.btn-sm Change...
                   .profilePhotos.thumbnail(style='background-image:url(#{photo});')
             else
                 p You haven't added any photos...
@@ -26,8 +26,9 @@ block content
           button.btn.btn-success(type='submit') Upload Photos
     .col-xs-4
   .row.backdrop
-    .col-xs-6
-      form#editProfileForm(role='form', method='post', action='/users/edit')
+
+    form#editProfileForm(role='form', method='post', action='/users/edit')
+      .col-xs-6
         .row
           .col-xs-1
           .col-xs-4
@@ -45,10 +46,10 @@ block content
               label Favorite Movies/Books
                 textarea.area(name='favMedia') #{user.favMedia || ""}
 
-    .col-xs-6
+      .col-xs-6
             .form-group
               label(for='name') Display Name:
-              input.form-control#name(type='text', name='name', value=(user.username || 'name?'), autofocus=true)
+              input.form-control#name(type='text', name='username', value=(user.username || 'name?'), autofocus=true)
 
             .form-group
               label(for='species') Species:
@@ -86,6 +87,22 @@ block content
                 select(name='smoker')
                   option(value='No') No
                   option(value='Yes') Yes
+            .form-group
+              label Height:
+                select(name='height')
+                  option(value='Dwarf') Dwarf
+                  option(value='Short') Short
+                  option(value='Average') Average
+                  option(value='Tall') Tall
+                  option(value='Really Tall') Really Tall
+            .form-group
+              label Weight:
+                select(name='weight')
+                  option(value='Slim') Slim
+                  option(value='Athletic') Athletic
+                  option(value='Average') Average
+                  option(value='Curvy') Curvy
+                  option(value='Rotund') Rotund
             .form-group
               label(for='locName') Location:
               input.form-control#locName(type='text', name='loc[name]', value=(user.loc.name || 'location?'))
