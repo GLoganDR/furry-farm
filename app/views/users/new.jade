@@ -2,7 +2,8 @@ extends ../shared/template
 block content
   h2 Register
   .row
-    .col-xs-6
+    .col-xs-4
+    .col-xs-4.backdrop.outline
       form(role='form', method='post', action='/register')
         .form-group
           label(for='email') Email
@@ -10,7 +11,7 @@ block content
         .form-group
           label(for='password') Password
           input.form-control#password(type='password', name='password')
-        button.btn.btn-primary(type='submit') Submit
-    .col-xs-6 
+        button.btn.btn-primary.big(type='submit') Register
+    .col-xs-4 
 
 block scripts
