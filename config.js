@@ -3,21 +3,21 @@
   var config = {};
 
 config.twitter = {
-  apiKey      : '2AMFYlJS4C5MXfm2MWRiIjLI4',
+  apiKey      : 'r2pzcfBLTAl5O5M278akBdSk',
   apiSecret   : process.env.TWITTER_SECRET,
-  callbackUrl : 'http://jessica-vm.com:3334/auth/twitter/callback'
+  callbackUrl : 'http://172.31.37.69:3334/auth/twitter/callback'
 };
 
 config.google = {
-  clientId      : '936106218408-rs6be7fr5ql6hnmj3ktqpigeojfeflmq.apps.googleusercontent.com',
+  clientId      : '1087279288457-938rv5vlkeos3vfan60op2plv41b5kr9.apps.googleusercontent.com',
   clientSecret  : process.env.GOOGLE_SECRET,
-  callbackUrl   : 'http://jessica-vm.com:3334/auth/google/callback'
+  callbackUrl   : 'http://172.31.37.69:3334/auth/google/callback'
 };
 
 config.facebook = {
-  clientId      : '792591384125995',
+  clientId      : '297151127134724',
   clientSecret  : process.env.FACEBOOK_SECRET,
-  callbackUrl   : 'http://jessica-vm.com:3334/auth/facebook/callback'
+  callbackUrl   : 'http://172.31.37.69:3334/auth/facebook/callback'
 };
 
 config.stripe = {
